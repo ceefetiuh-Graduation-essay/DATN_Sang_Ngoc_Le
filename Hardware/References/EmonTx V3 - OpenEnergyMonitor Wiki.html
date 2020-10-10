@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Burden_Resistor_Calculations -->
+<html lang="en-GB" dir="ltr" class="client-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>EmonTx V3 - OpenEnergyMonitor Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"EmonTx_V3","wgTitle":"EmonTx V3","wgCurRevisionId":3944,"wgRevisionId":3944,"wgArticleId":2727,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":!1,"wgPageContentLanguage":"en-gb","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"EmonTx_V3","wgRelevantArticleId":2727,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en-gb"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","skins.vector.js"]);
+} );</script>
+<link rel="stylesheet" href="./EmonTx V3 - OpenEnergyMonitor Wiki_files/load.php">
+<style>
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}  .mw-content-ltr .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr .mw-collapsible-toggle{float:right} .mw-content-rtl .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl .mw-collapsible-toggle{float:left}.mw-customtoggle,.mw-collapsible-toggle{cursor:pointer} caption .mw-collapsible-toggle,.mw-content-ltr caption .mw-collapsible-toggle,.mw-content-rtl caption .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr caption .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle,.mw-content-ltr li .mw-collapsible-toggle,.mw-content-rtl li .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr li .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}</style><style>
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left; overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.highlight{font-weight:bold}
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(/resources/src/mediawiki.action/images/green-checkmark.png?9048a)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{color:black;text-decoration:none}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}.suggestions a.mw-searchSuggest-link .special-query{ overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}</style><meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/load(1).php"></script>
+<meta name="generator" content="MediaWiki 1.26.2">
+<link rel="shortcut icon" href="https://wiki.openenergymonitor.org/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.openenergymonitor.org/opensearch_desc.php" title="OpenEnergyMonitor Wiki (en-gb)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.openenergymonitor.org/api.php?action=rsd">
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="OpenEnergyMonitor Wiki Atom feed" href="https://wiki.openenergymonitor.org/index.php?title=Special:RecentChanges&amp;feed=atom">
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/Vector/csshover.min.htc")}</style><![endif]-->
+<script src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/load(2).php"></script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-EmonTx_V3 skin-vector action-view">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en-GB">EmonTx V3</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From OpenEnergyMonitor Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#mw-head">navigation</a>, 					<a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en-GB" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#emonTx_V3.2"><span class="tocnumber">1</span> <span class="toctext">emonTx V3.2</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#For_new_.282015.29_emonTx_V3.4_see_wiki_page:_EmonTx_V3.4"><span class="tocnumber">2</span> <span class="toctext"><b>For new (2015) emonTx V3.4 see wiki page: EmonTx_V3.4</b></span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Features"><span class="tocnumber">2.1</span> <span class="toctext">Features</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Port_Map"><span class="tocnumber">2.2</span> <span class="toctext">Port Map</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#emonTx_V3.2_2"><span class="tocnumber">2.2.1</span> <span class="toctext">emonTx V3.2</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Overview"><span class="tocnumber">2.3</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Power_Supply_Options"><span class="tocnumber">2.4</span> <span class="toctext">Power Supply Options</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Powering_via_DC_.281-3.29"><span class="tocnumber">2.4.1</span> <span class="toctext">Powering via DC (1-3)</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Powering_via_AC_.284.29"><span class="tocnumber">2.4.2</span> <span class="toctext">Powering via AC (4)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Uploading_Arduino_Firmware"><span class="tocnumber">2.5</span> <span class="toctext">Uploading Arduino Firmware</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Compiling_and_Uploading_using_Arduino_IDE"><span class="tocnumber">2.5.1</span> <span class="toctext">Compiling and Uploading using Arduino IDE</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Flashing_Pre-compiled_.hex"><span class="tocnumber">2.5.2</span> <span class="toctext">Flashing Pre-compiled .hex</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Flashing_the_Bootloader"><span class="tocnumber">2.5.3</span> <span class="toctext">Flashing the Bootloader</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Arduino_Firmware_Info"><span class="tocnumber">2.5.4</span> <span class="toctext">Arduino Firmware Info</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-15"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Standard_Operation"><span class="tocnumber">2.6</span> <span class="toctext">Standard Operation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#CT_Energy_Monitoring"><span class="tocnumber">2.6.1</span> <span class="toctext">CT Energy Monitoring</span></a>
+<ul>
+<li class="toclevel-4 tocsection-17"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Single_Phase"><span class="tocnumber">2.6.1.1</span> <span class="toctext">Single Phase</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Three-Phase"><span class="tocnumber">2.6.1.2</span> <span class="toctext">Three-Phase</span></a></li>
+<li class="toclevel-4 tocsection-19"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Accuracy"><span class="tocnumber">2.6.1.3</span> <span class="toctext">Accuracy</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Extended_Operation"><span class="tocnumber">2.7</span> <span class="toctext">Extended Operation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Temperature_Monitoring"><span class="tocnumber">2.7.1</span> <span class="toctext">Temperature Monitoring</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Utility_Meter_Interface"><span class="tocnumber">2.7.2</span> <span class="toctext">Utility Meter Interface</span></a>
+<ul>
+<li class="toclevel-4 tocsection-23"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Optical_Pulse_Counting"><span class="tocnumber">2.7.2.1</span> <span class="toctext">Optical Pulse Counting</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Direct_Optical_Interface"><span class="tocnumber">2.7.2.2</span> <span class="toctext">Direct Optical Interface</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-25"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Connectivity"><span class="tocnumber">2.8</span> <span class="toctext">Connectivity</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#RF_Connectivity"><span class="tocnumber">2.8.1</span> <span class="toctext">RF Connectivity</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#RFM12B"><span class="tocnumber">2.8.2</span> <span class="toctext">RFM12B</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#SRF"><span class="tocnumber">2.8.3</span> <span class="toctext">SRF</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Antenna"><span class="tocnumber">2.8.4</span> <span class="toctext">Antenna</span></a>
+<ul>
+<li class="toclevel-4 tocsection-30"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#SMA_Antenna"><span class="tocnumber">2.8.4.1</span> <span class="toctext">SMA Antenna</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-31"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Wired_Connectivity"><span class="tocnumber">2.8.5</span> <span class="toctext">Wired Connectivity</span></a>
+<ul>
+<li class="toclevel-4 tocsection-32"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Direct_connection_-_emonTx_v3_to_Raspberry_Pi_GPIO"><span class="tocnumber">2.8.5.1</span> <span class="toctext">Direct connection - emonTx v3 to Raspberry Pi GPIO</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-33"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Electrical_Characteristics_-_Absolute_min_.2F_max"><span class="tocnumber">2.9</span> <span class="toctext">Electrical Characteristics - Absolute min / max</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Design_Calculations"><span class="tocnumber">2.10</span> <span class="toctext">Design Calculations</span></a>
+<ul>
+<li class="toclevel-3 tocsection-35"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Burden_Resistor_Calculations"><span class="tocnumber">2.10.1</span> <span class="toctext">Burden Resistor Calculations</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#CT_inserted_indication"><span class="tocnumber">2.10.2</span> <span class="toctext">CT inserted indication</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Burden_resistor_and_capacitor_power_and_voltage_ratings"><span class="tocnumber">2.10.3</span> <span class="toctext">Burden resistor and capacitor power and voltage ratings</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Power_Supply"><span class="tocnumber">2.10.4</span> <span class="toctext">Power Supply</span></a>
+<ul>
+<li class="toclevel-4 tocsection-39"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#DC"><span class="tocnumber">2.10.4.1</span> <span class="toctext">DC</span></a></li>
+<li class="toclevel-4 tocsection-40"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#AC-DC"><span class="tocnumber">2.10.4.2</span> <span class="toctext">AC-DC</span></a></li>
+<li class="toclevel-4 tocsection-41"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#AD-DC_Power_Supply_component_ratings"><span class="tocnumber">2.10.4.3</span> <span class="toctext">AD-DC Power Supply component ratings</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-42"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Open-Hardware_Design_Files"><span class="tocnumber">2.11</span> <span class="toctext">Open-Hardware Design Files</span></a>
+<ul>
+<li class="toclevel-3 tocsection-43"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Ideas_for_Future_Versions"><span class="tocnumber">2.11.1</span> <span class="toctext">Ideas for Future Versions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-44"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Physical_Dimensions"><span class="tocnumber">2.12</span> <span class="toctext">Physical Dimensions</span></a>
+<ul>
+<li class="toclevel-3 tocsection-45"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Enclosure_.26_Fascia_CAD_Design"><span class="tocnumber">2.12.1</span> <span class="toctext">Enclosure &amp; Fascia CAD Design</span></a>
+<ul>
+<li class="toclevel-4 tocsection-46"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#DIN_Rail_Mount"><span class="tocnumber">2.12.1.1</span> <span class="toctext">DIN Rail Mount</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-47"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#License"><span class="tocnumber">2.13</span> <span class="toctext">License</span></a></li>
+<li class="toclevel-2 tocsection-48"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Environmental_.26_Life_Cycle"><span class="tocnumber">2.14</span> <span class="toctext">Environmental &amp; Life Cycle</span></a></li>
+<li class="toclevel-2 tocsection-49"><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Disclaimer"><span class="tocnumber">2.15</span> <span class="toctext">Disclaimer</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="emonTx_V3.2">emonTx V3.2</span></h1>
+<h1><span class="mw-headline" id="For_new_.282015.29_emonTx_V3.4_see_wiki_page:_EmonTx_V3.4"><b>For new (2015) emonTx V3.4 see wiki page: <a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3.4" title="EmonTx V3.4">EmonTx_V3.4</a></b></span></h1>
+<p>The emontx v3 is a Low Power Wireless Energy Monitoring Node designed to monitor AC electrical power of four separate (household/building) circuits using non-invasive clip-on CT sensors and an AC-AC Voltage adaptor to provide a voltage signal for Real Power calculations.
+</p><p><a href="https://wiki.openenergymonitor.org/index.php/File:Emontxv3.jpg" class="image" title="emonTx V3 Setup"><img alt="emonTx V3 Setup" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/400px-Emontxv3.jpg" width="400" height="207" srcset="/images/thumb/Emontxv3.jpg/600px-Emontxv3.jpg 1.5x, /images/thumb/Emontxv3.jpg/800px-Emontxv3.jpg 2x"></a>
+<a href="https://wiki.openenergymonitor.org/index.php/File:EmonTxV3_full_noCase_RFM12B_RFu328_small.JPG" class="image" title="emonTx V3 PCB"><img alt="emonTx V3 PCB" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/300px-EmonTxV3_full_noCase_RFM12B_RFu328_small.JPG" width="300" height="238" srcset="/images/thumb/EmonTxV3_full_noCase_RFM12B_RFu328_small.JPG/450px-EmonTxV3_full_noCase_RFM12B_RFu328_small.JPG 1.5x, /images/thumb/EmonTxV3_full_noCase_RFM12B_RFu328_small.JPG/600px-EmonTxV3_full_noCase_RFM12B_RFu328_small.JPG 2x"></a>
+<a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_PCB_assembled_noHeaders.JPG" class="image" title="emonTx V 3 PCB assembled"><img alt="emonTx V 3 PCB assembled" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/350px-EmonTx_PCB_assembled_noHeaders.JPG" width="350" height="218" srcset="/images/thumb/EmonTx_PCB_assembled_noHeaders.JPG/525px-EmonTx_PCB_assembled_noHeaders.JPG 1.5x, /images/thumb/EmonTx_PCB_assembled_noHeaders.JPG/700px-EmonTx_PCB_assembled_noHeaders.JPG 2x"></a>
+</p>
+<h2><span class="mw-headline" id="Features">Features</span></h2>
+<ul><li> emonTx v3 can measure apparent power, real power*, power factor*, RMS voltage* and current on four mains circuits</li>
+<li> temperature and humidity sensing</li>
+<li> Pre-assembled SMT design</li>
+<li> A single AC-AC adapter can be used to power the emonTx V3 and provide AC voltage measurement</li>
+<li> 4x CT current sensing inputs</li>
+<li> On-board 3x AA battery option</li>
+<li> Flexible choice of RF radio module and removable microcontroller</li></ul>
+<pre>* when AC-AC voltage adapter is connected
+</pre>
+<h2><span class="mw-headline" id="Port_Map">Port Map</span></h2>
+<h3><span class="mw-headline" id="emonTx_V3.2_2">emonTx V3.2</span></h3>
+<p><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3.2_Labelled_Ports.jpg" class="image" title="emonTx V3 Ports"><img alt="emonTx V3 Ports" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/650px-EmonTx_V3.2_Labelled_Ports.jpg" width="650" height="570" srcset="/images/thumb/EmonTx_V3.2_Labelled_Ports.jpg/975px-EmonTx_V3.2_Labelled_Ports.jpg 1.5x, /images/EmonTx_V3.2_Labelled_Ports.jpg 2x"></a>
+<a href="https://wiki.openenergymonitor.org/index.php/File:EmonTxV3-io.png" class="image" title="emonTx V3 IO"><img alt="emonTx V3 IO" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/EmonTxV3-io.png" width="650" height="553"></a>
+<a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3.4_portmap.png" class="image" title="emonTx V3 Port map"><img alt="emonTx V3 Port map" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/750px-EmonTx_V3.4_portmap.png" width="750" height="345" srcset="/images/EmonTx_V3.4_portmap.png 1.5x, /images/EmonTx_V3.4_portmap.png 2x"></a>
+</p>
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Using an ATmega328 microprocessor, the emonTx V3 runs standard Arduino sketches.  Custom sketches are uploaded using the Arduino IDE and a USB to UART cable.
+</p><p>Data from the emonTx V3 is transmitted via a 433/868MHz radio to an emonBase, a web-connected base-station (we recommend a Raspberry Pi with an RFM12Pi) which then posts the data to an emoncms server (e.g. emoncms.org) for logging, processing and graphing.
+</p><p>The main board of the emonTx V3 is pre-assembled, requiring the addition of the RFu328 and an optional battery holder to get up and running. However, if the 'fully-built' option has been selected in the emonTx v3 Bundle Builder, the emonTx will ship with the  Rfu328 and firmware installed. If this is the case, skip to step 3 below.
+</p>
+<h2><span class="mw-headline" id="Power_Supply_Options">Power Supply Options</span></h2>
+<p>There are four ways to power the emonTx v3:
+</p>
+<ol><li>USB to UART cable - recommended for short periods only, e.g. while programming. We recommend removal of all other power sources.</li>
+<li>5V DC Mini-USB cable - remove jumper JP2 when powering via DC, if AC adapter is present </li>
+<li>3 x AA Batteries - remove jumper JP2 when powering via DC, if AC adapter is present</li>
+<li>9V AC-AC power adapter - with jumper JP2 closed (If jumper 2 is left open the AC-AC adapter will be used for power sampling, but not to power the emonTx V3 - see Powering via AC below) </li></ol>
+<h3><span class="mw-headline" id="Powering_via_DC_.281-3.29">Powering via DC (1-3)</span></h3>
+<p>When powering the emonTx V3 via DC (1-3) (and running the main emonTx firmware (<a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware/tree/master/emonTxV3/RFM12B/emonTxV3_RFM12B_DiscreteSampling">emonTxV3_RFM12B_DiscreteSampling</a>)) the emonTx v3 will take Apparent Power measurements, measuring only current, assuming a Power Factor of 1, and Vrms to be 230V. Power saving mode will be implemented, i.e. the unit will go into sleep mode between readings (default every 10s) to conserve battery power.
+</p><p><b>The red LED indicator will illuminate for a couple of seconds then extinguish never to flash again, if power is from a DC source. If the LED flashes multiple times at startup, this indicates the emonTx is detecting an AC waveform. This can happen if an AC adapter has been removed. Press the reset button if that occurs. When powering the unit via 5V USB/battery, it is advisable to remove the JP2 jumper if an AC-AC adapter is present.</b>
+</p>
+<h3><span class="mw-headline" id="Powering_via_AC_.284.29">Powering via AC (4)</span></h3>
+<p>A nice feature of the emonTx v3 is the ability to use an AC-AC adapter to power the unit while simultaneously providing an AC voltage sample. If the emonTx v3 detects the presence of an AC adapter at startup, it will automatically take Real Power and Irms measurements by sampling the AC waveform. Real Power is what you get billed for and can sometimes, depending on the appliances connected to the circuit being monitored, vary significantly from Apparent Power - see Building Blocks for more info on AC power theory. For best power monitoring accuracy, we recommend powering with an AC-AC adapter whenever possible.
+</p><p>Using the AC voltage sample for reference enables the emonTx to monitor the direction of the current flow. This is important for PV system monitoring. If you notice a negative reading when you were expecting a positive one, detach the CT from the wire, flip it 180 degrees, and re-attach it to the wire. <b>The red indicator LED will flash at startup then flash once every 10's to indicate an AC waveform has been detected</b>. Sleep mode will be disabled to maintain a consistent power draw on the AC circuit. 
+</p><p><i>Important note regarding powering with AC: Only recommended for standard emonTx operation without auxiliary sensors (apart from a max of 4 DS18B20 temperature sensors) or equipment (e.g. relay modules) connected. Correct operation via the AC supply is critically dependant upon using the correct AC-AC adapter. If you are using the recommended adapter, the current draw exceeds 10 mA, and mains voltage is below the allowed minimum, circuit operation will be impaired adversely affecting the accuracy of the emonTx. To avoid damage to the emonTx v3 circuits the current drawn from the AC circuit should never exceed 60mA - see the technical wiki for more info. If more than 10mA of current is required, it is recommended to remove jumper 2 (JP2) and power the emonTx via the 5V USB connector. If an AC-AC adapter is connected it will be used only to provide an AC sample when JP2 is removed.</i>
+</p>
+<h2><span class="mw-headline" id="Uploading_Arduino_Firmware">Uploading Arduino Firmware</span></h2>
+<h3><span class="mw-headline" id="Compiling_and_Uploading_using_Arduino_IDE">Compiling and Uploading using Arduino IDE</span></h3>
+<p>The emonTx v3 uses the ATmega328 microcontroller (same as Arduino Uno) and comes with the Optiboot (Arduino Uno) serial bootloader installed. This makes it super easy to upload new code to the emonTx V3 from the Arduino IDE. 
+</p><p><br>
+<b>A <a rel="nofollow" class="external text" href="http://shop.openenergymonitor.com/programmers/">USB to UART cable</a> is required to upload new Arduino firmware sketches</b>
+</p><p><br>
+Start by downloading the firmware, libraries and setting up the Arduino programming environment by following this guide:
+</p><p><a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks/setting-up-the-arduino-environment">Setting up the Arduino Programming Environment</a>
+</p><p>Once complete, the emonTx v3 firmware location should be navigable from within the Arduino IDE by going to:
+</p><p><i>File &gt; Sketchbook &gt; OpenEnergyMonitor &gt; emonTxFirmware &gt; emonTxV3</i>
+</p>
+<h3><span class="mw-headline" id="Flashing_Pre-compiled_.hex">Flashing Pre-compiled .hex</span></h3>
+<p>The main emonTx v3 <i><a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware/tree/master/emonTxV3/RFM12B/emonTxV3_RFM12B_DiscreteSampling">emonTxV3_RFM12B_Discrete Sampling</a></i> firmware as pre-loaded onto pre-build emonTx is also supplied as a pre-compiled .hex file. 
+</p><p>GitHub can be used to make sure you have the latest version:
+</p><p><code> 
+$ git clone <a rel="nofollow" class="external free" href="https://github.com/openenergymonitor/emonTxFirmware.git">https://github.com/openenergymonitor/emonTxFirmware.git</a>
+$ cd emonTxFirmware/emonTxV3/RFM12B/emonTxV3_RFM12B_DiscreteSampling
+</code>
+</p><p><b>Linux</b>&nbsp;: use AVRdude
+</p><p><code> $ sudo apt-get install avrdude</code>
+</p><p><code> $ avrdude -v  -c arduino -p ATMEGA328P -P /dev/ttyUSB0 -b 115200 -U flash:w:emonTxV3_RFM12B_DiscreteSampling.cpp433.hex</code>
+</p><p>Specifying the USB port of your USB to UART programmer and the correct name and location of the .hex file
+</p><p><b>Windows</b>: you might be able to use the the <a rel="nofollow" class="external text" href="http://www.hobbytronics.co.uk/arduino-xloader">XLoader</a> application to upload .hex files (we have not tested this. Please update the wiki if you have)
+</p>
+<h3><span class="mw-headline" id="Flashing_the_Bootloader">Flashing the Bootloader</span></h3>
+<p><i>Should not be required</i>
+</p><p>The OptioBoot Arduino Uno serial bootloader should already be loaded on the ATmega328 chip. If however, for some reason you need to re-upload the bootloder and set the fuses, here's how it's done:
+</p><p>The stock emonTx firmware can be downloaded in pre-compiled .hex form, including the bootloader, from github, look for a .hex file with the word bootloader in the title, on the emonTx V3 GitHub.  
+</p><p><br>
+The .hex file can be flashed, and the fuses set, on the ATmega328 using the following avrdude command:  
+</p>
+<code><pre>$ sudo avrdude -v -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:emonTxV3_4_RFM12B_DiscreteSampling_bootloader.cpp.hex:i  -Ulock:w:0x0F:m</pre></code>
+<p>or, to speed things up:
+</p>
+<code><pre>$ sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:emonTxV3_4_RFM12B_DiscreteSampling_bootloader.cpp.hex:i  -Ulock:w:0x0F:m</pre></code>
+<p>If you want to read the data from the ATmega328, e.g to make a backup, execute the following command:
+</p>
+<code><pre> $ avrdude -v -p atmega328p -c avrispmkII -P usb -U flash:r:test_intel.hex:i</pre></code>
+<h3><span class="mw-headline" id="Arduino_Firmware_Info">Arduino Firmware Info</span></h3>
+<p>See GitHub readme for firmware info: 
+</p><p><b>All emonTx v3 firmware is available <a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware">on Github:emonTxFirmware</a></b>
+</p><p>All pre-assembled emonTx v3s are shipped with <b>emonTxV3_RFM12B_Discrete Sampling</b> firmware. This is the main firmware for the emonTx v3 and has been tested and the device calibrated based on nominal component values. If better accuracy is required, and facilities are available, the unit should be re-calibrated to take account of variations present in the components used. You will need access to a programmer to reload the sketch.
+If you ordered an emonTx v3 without a radio module, no firmware will be loaded, although a bootloader will be present. You will need access to a programmer to load a sketch.
+</p><p>The <b>emonTxV3_RFM12B_Discrete Sampling</b> firmware has the following features:
+</p>
+<ul><li> Detection of AC-AC adapter sets Apparent Power / Real Power Sampling mode</li>
+<li> Detection of battery / USB 5V or AC &gt; DC power method and sets sleep mode</li>
+<li> Detects connected CTs, and samples only from the connected sensors</li>
+<li> Detection of remote DS18B20 temperature sensor</li></ul>
+<p>[Note: Detection of connected sensors occurs at power-on. The sketch must be re-started (press the reset button) if changes are made to the input connections, i.e. sensors are connected or disconnected after power-on]
+</p><p>The <b>emonTxV3_RFM12B_Discrete Sampling</b> firmware samples 10 full AC cycles, i.e. 200ms per measurement per CT. Within this measurement, samples are taken at the rate of approximately 2500 per second. It is assumed the power does not vary significantly during the time the emonTx is in sleep mode, which is usually sufficient for household monitoring. If greater precision is required, (as is the case with <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/pvdiversion/pll">PV Power Diversion</a> we recommended you use PLL continuous sampling. See the RFM12B firmware examples folder on GitHub.
+</p>
+<h2><span class="mw-headline" id="Standard_Operation">Standard Operation</span></h2>
+<h3><span class="mw-headline" id="CT_Energy_Monitoring">CT Energy Monitoring</span></h3>
+<h4><span class="mw-headline" id="Single_Phase">Single Phase</span></h4>
+<p>By default, all OEM sketches are intended for monitoring a single phase system. All sketches are available on <a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware/tree/master/emonTxV3/RFM12Bm">GitHub</a>.
+</p><p>The <a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware/tree/master/emonTxV3/RFM12B/emonTxV3_4_RFM12B_DiscreteSampling">"Discrete Sampling"</a> sketch is suitable for general purpose use, including installations where the emonTx is powered by batteries. However, advanced sketches are available under "Examples" including a sketch for 3-phase installations, "Continuous Sampling" (useful where there is a rapidly switched load, for example), pulse input, etc.
+</p><p>The theory behind the calculations is explained in the <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks">"Building Blocks"</a> section.
+</p>
+<h4><span class="mw-headline" id="Three-Phase">Three-Phase</span></h4>
+<p>Because the emonTx has only one voltage sensing input, it is not possible to accurately measure 3-phase power with a single unit. However, if the voltage balance between the phases is accurately maintained (i.e. the supply has a relatively high fault level), it is possible to measure the voltage of the first phase and use this to calculate a reasonable representation of the voltages on the second and third phases, that can then be used to calculate the real and apparent power on the other two phases. A sketch that does this is <a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware/tree/master/emonTxV3/RFM12B/Examples/emonTxV3_3Phase_Voltage">emonTxV3_3Phase_Voltage</a>
+</p><p>The "emonTxV3_3Phase_Voltage" sketch works by sampling the Phase 1 voltage as normal, but the values are stored in a circular array. One third of a cycle later, the stored value is read and used to calculate the real power in Phase 2. Two thirds of a cycle later, the stored value is read again and used to calculate the real power in Phase 3. Unfortunately, because the samples do not align exactly with the desired points on the second and third phases, it is necessary to interpolate between samples. When commissioning this sketch, it is essential to follow the calibration procedure in the comments.
+</p><p>Further information about 3-phase supplies can be found in <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks/3-phase-power">"Building Blocks"</a>.
+</p>
+<h4><span class="mw-headline" id="Accuracy">Accuracy</span></h4>
+<p>Like any other device assembled using components from a variety of sources, the values that the emonTx reads are subject to normal manufacturing tolerances. These have been analysed in detail in <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks/emontx-error-sources">Building Blocks</a>.
+</p><p>It is very important to note that the 'worst-case' error is exactly that, the maximum error <i>possible</i> if every component has the greatest possible error, and all errors add up in the worst possible way. The worst case is very unlikely to occur in practice. Most components are closer to their nominal values than their 'worst-case' values, and some of the errors will cancel each other. With careful calibration, some users claim their emonTx is reporting energy consumption within 1% of the value recorded by their energy supplier's meter.
+</p>
+<h2><span class="mw-headline" id="Extended_Operation">Extended Operation</span></h2>
+<h3><span class="mw-headline" id="Temperature_Monitoring">Temperature Monitoring</span></h3>
+<p>A DS18B20 digital temperature sensor can easily be connected to the emonTx v3 by connecting the sensor to the screw terminal block. <b>The default firmware supports auto-detecting one DS18B20 sensor</b>. Many DS18B20s can be daisy-chained, but this will require changes to the pre-installed emonTx firmware. You may also run into power consumption issues depending on how you are powering the emonTx (see Power Supply Options above). 
+</p><p>In order to conserve battery power, the emonTx v3 switches off the DS18B20 between readings, and executes the temperature conversion routine while the ATmega328 is sleeping. To do this, power (3.3V) is supplied to the DS18B20's power pin from Dig19/ADC5. This digital pin is switched off between readings. The data connection from the DS18B20 is connected to Dig5. This I/O pin has a 4K7 pull-up resistor connected to the 3.3 V rail as required by the DS18B20.
+</p><p>To connect an external DS18B20 to the emonTx v3 screw terminal block, connections are as follows:
+</p>
+<table class="wikitable">
+<caption>DS18B20 emonTx V3 screw terminal connections
+</caption>
+<tbody><tr>
+<td><b>Screw terminal pin</b>
+</td>
+<td><b>DS18B20 Connection</b>
+</td></tr>
+<tr>
+<td>3 - GND
+</td>
+<td>GND (Black)
+</td></tr>
+<tr>
+<td>5 - Dig19
+</td>
+<td>Power (Red)
+</td></tr>
+<tr>
+<td>6 - Dig5
+</td>
+<td>Data (White)
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Utility_Meter_Interface">Utility Meter Interface</span></h3>
+<h4><span class="mw-headline" id="Optical_Pulse_Counting">Optical Pulse Counting</span></h4>
+<p>Many meters have pulse outputs, including electricity meters (single phase, 3-phase, import and export), gas meters, water meters etc. The pulse output may be a flashing LED or a switching relay (usually solid state) or both. We recommend using the optical interface where available, as this decouples the monitoring equipment from any high/mains voltages. 
+</p><p>In the case of an electricity meter, a pulse output corresponds to a fixed amount of energy passing through the meter (kWh/Wh). For single-phase domestic electricity meters (e.g. Elster A100c) each pulse usually corresponds to 1 Wh (1000 pulses per kWh).  Water and gas meters are typically marked to show the quantity of water (liters/gallons), or gas, (cubic meters/cubic feet) each pulse represents.
+</p><p><br>
+<b>The emonTx V3 has one interrupt input (IRQ 0, Dig2) which can be used for pulse counting. This is broken out on terminal block port 4</b>
+</p><p>The emonTx V3 <a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/emonTxFirmware/tree/master/emonTxV3/RFM12B/Examples">pulse counting example sketch calculates the power by the measuring the time between pulses</a>.
+</p><p>Read more about pulse counting <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks/introduction-to-pulse-counting">on the OpenEnergyMonitor Buillding Block pages here</a>
+</p><p><br> 
+<b>emonTx v3 Hardware Connections</b>
+</p><p>Connect the pulse input to emonTx v3 terminal block port 4 (IRQ 0 / Digital 2)
+If you are connecting a hard-wired pulse output, you may need to add a pull-down resistor to PCB (R31)
+If you are using an optical counter (e.g <a rel="nofollow" class="external text" href="http://shop.openenergymonitor.com/tsl257-optical-pulse-sensing-kit/">TSL257</a>), you should connect the power pin to 3.3V or 5V (if running off 5V USB)
+</p>
+<table class="wikitable">
+<caption>emonTx V3 pulse-counting screw terminal connections
+</caption>
+<tbody><tr>
+<td><b>Screw terminal pin</b>
+</td>
+<td><b>Connection</b>
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>5V (if powered via 5V USB)
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>3.3V
+</td></tr>
+<tr>
+<td>3
+</td>
+<td>GND
+</td></tr>
+<tr>
+<td>4
+</td>
+<td>IRQ 0 / Dig2
+</td></tr></tbody></table>
+<p>When used for pulse counting operation, we recommend powering the emonTx v3 from the 5V mini-USB connector, or the AC-AC adapter. The additional power consumed by the optical pulse sensor will significantly reduce battery life, compared to CT-only operation.
+</p>
+<h4><span class="mw-headline" id="Direct_Optical_Interface">Direct Optical Interface</span></h4>
+<p>if you have an <a rel="nofollow" class="external text" href="http://4.bp.blogspot.com/-O6Rbpza8DRI/UDtMZHQNG7I/AAAAAAAACeo/i6Xx0PCuLdo/s1600/IMAG0876.jpg">Elster</a> meter, (tested with an Elster 100C) the emonTx V3 with an <a rel="nofollow" class="external text" href="http://shop.openenergymonitor.com/tsl261r-ir-sensor-kit/">IR TSL261R</a> sensor, can be used to interface directly with the meter to read the accumulated watt hours you have generated or consumed. This reading can be used on its own or to cross-check and calibrate CT based measurement. See here for original <a rel="nofollow" class="external text" href="http://openenergymonitor.blogspot.com/2012/08/reading-watt-hour-data-from-elster.html">blog post</a>
+</p>
+<h2><span class="mw-headline" id="Connectivity">Connectivity</span></h2>
+<p>OpenEnergyMonitor was designed to use a low power radio to transfer the readings from the Sensor Node to the base station.  This uses less power and has longer range than wifi. 
+</p>
+<h3><span class="mw-headline" id="RF_Connectivity">RF Connectivity</span></h3>
+<h3><span class="mw-headline" id="RFM12B">RFM12B</span></h3>
+<p>The Rfu328 sold through the OpenEnergyMonitor shop is setup for use with the RFM12B. Make sure you solder the RFM12B with the correct orientation if fitting it yourself. The crystal on the RFM12B should be on the same side as the tiny 16MHz ATmega328 crystal on the RFu328. To use the RFM12B on the RFu328, a modified version of the JeeLib RF12 library has been created. This is called the <a rel="nofollow" class="external text" href="https://github.com/openenergymonitor/RFu_jeelib">RFu_JeeLib</a> see the GitHub readme for details regarding the modifications. Using the RFu_JeeLib, the RFM12B on the RFu348 can be used exactly as before, i.e. all code written for the emonTx V2, JeeNode, etc should work fine using using the RFu_JeeLib library.
+</p>
+<h3><span class="mw-headline" id="SRF">SRF</span></h3>
+<p>A Ciseco SRF module can be used on the emonTx V3 instead of an RFM12B. The easiest thing to do is to purchase a complete <a rel="nofollow" class="external text" href="http://shop.ciseco.co.uk/rf-328-arduino-atmega-328-compatible-radio-transceiver-rfu-328/">RFu328 SRF setup from Ciseco</a>, however, an SRF module can be used on the RFu328 purchased from the OpenEnergyMonitor shop with a small modification. The RFu328 sold through the OpenEnergyMonitor shop comes setup for use an RFM12B. To use it with the SRF module, you'll need to remove one SMT resistor and rotate another by 90 degress. <a rel="nofollow" class="external text" href="http://openmicros.org/index.php/articles/88-ciseco-product-documentation/268">Follow these instructions from Ciseco IN REVERSE!</a>
+</p><p><b>Due to higher power requirements, it is not possible to power the emonTx v3 from an AC adapter when using an SRF module. When an SRF module is used, the board should be powered via DC and the jumper removed</b> see <a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Electrical_Characteristics_-_Absolute_min_.2F_max">#Electrical Characteristics - Absolute min / max</a> for power ratings.
+</p>
+<h3><span class="mw-headline" id="Antenna">Antenna</span></h3>
+<p>By default, the emonTx V3 is shipped with a wire whip antenna. Our tests have shown a wire whip performs best. See our test data below:
+</p><p><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_ant_test_photo.jpg" class="image"><img alt="EmonTx ant test photo.jpg" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/500px-EmonTx_ant_test_photo.jpg" width="500" height="252" srcset="/images/thumb/EmonTx_ant_test_photo.jpg/750px-EmonTx_ant_test_photo.jpg 1.5x, /images/thumb/EmonTx_ant_test_photo.jpg/1000px-EmonTx_ant_test_photo.jpg 2x"></a> <a href="https://wiki.openenergymonitor.org/index.php/File:EmonTxV3_ant_test.png" class="image" title="emonTx Test Graph"><img alt="emonTx Test Graph" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/500px-EmonTxV3_ant_test.png" width="500" height="281" srcset="/images/EmonTxV3_ant_test.png 1.5x, /images/EmonTxV3_ant_test.png 2x"></a> 
+</p><p>All antennas and RFM12B modules were 433MHz running standard emonTx discrete sampling firmware, transmitting once very 10s. Each emonTx was given a unique node ID (7-10) to enable transmission identification. 
+</p><p>An RFM69CW receiver provided RSSI readings to enable antenna comparison. The RSSI readings were all lower than normal since the RFM69CW used is an 868MHz module, with an 868MHz antenna, forced via software, to a 433MHz receive frequency.
+</p><p>The emonTxs with the SMA antenna had the RFu328 soldered directly (SMT) to the PCB, the coil and whip antenna had the RFu328 mounted using headers
+</p><p><br>
+</p>
+<h4><span class="mw-headline" id="SMA_Antenna">SMA Antenna</span></h4>
+<p>While an SMA antenna does not improve the gain, it does make the antenna setup more durable and allow for the use of an SMA feedline and remote whip antenna. The whip can be a real lifesaver for installations with difficult RF considerations e.g. thick stone walls, no direct line of sight. 
+</p><p><b>Adding an SMA antenna</b>
+</p><p>Ideally, the RFu328 should be soldered directly to the emonTX via the SMT pads when using an SMA connector, (as shown in the photo below) as this connects the antenna pad on the RFu238 directly to the emonTx PCB antenna track which is connected to the SMA connector.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:252px;"><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3_SMA.jpg" class="image"><img alt="" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/250px-EmonTx_V3_SMA.jpg" width="250" height="188" class="thumbimage" srcset="/images/thumb/EmonTx_V3_SMA.jpg/375px-EmonTx_V3_SMA.jpg 1.5x, /images/thumb/EmonTx_V3_SMA.jpg/500px-EmonTx_V3_SMA.jpg 2x"></a>  <div class="thumbcaption"><div class="magnify"><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3_SMA.jpg" class="internal" title="Enlarge"></a></div>RFu328 SMT SMA</div></div></div> 
+<p>It is possible to use an SMA antenna when the RFu328 has been mounted on headers instead of soldered directly to the SMT pads on the emonTx.  To do so, you'll need to connect the RFu328 antenna pad to the antenna pad on the emonTx with a small wire jumper. The wire jumper and the two pads which need to be connected are shown by the red line in the photo below.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:252px;"><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3_SMA_RFu_headers.jpg" class="image"><img alt="" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/250px-EmonTx_V3_SMA_RFu_headers.jpg" width="250" height="188" class="thumbimage" srcset="/images/thumb/EmonTx_V3_SMA_RFu_headers.jpg/375px-EmonTx_V3_SMA_RFu_headers.jpg 1.5x, /images/thumb/EmonTx_V3_SMA_RFu_headers.jpg/500px-EmonTx_V3_SMA_RFu_headers.jpg 2x"></a>  <div class="thumbcaption"><div class="magnify"><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3_SMA_RFu_headers.jpg" class="internal" title="Enlarge"></a></div>RFu328 Headers showing jumper for SMA</div></div></div>
+<p><br>
+</p>
+<table class="wikitable">
+<caption>SMA antenna options for emonTx V3
+</caption>
+<tbody><tr>
+<td><b>Manufacturer</b>
+</td>
+<td><b>Description</b>
+</td>
+<td><b>Value</b>
+</td>
+<td><b>Package</b>
+</td>
+<td><b>Rapid Code</b>
+</td>
+<td><b>Farnell Code</b>
+</td>
+<td><b>RS Code</b>
+</td></tr>
+<tr>
+<td>Tru Connect
+</td>
+<td>SMA PCB connector
+</td>
+<td>N/A
+</td>
+<td>thru-hole
+</td>
+<td><b>16-1562</b>
+</td>
+<td>2079861
+</td>
+<td>512-0070
+</td></tr>
+<tr>
+<td>RF-Solutions
+</td>
+<td>434MHz Ant straight
+</td>
+<td>434MHz
+</td>
+<td>SMA
+</td>
+<td>542-488
+</td>
+<td>1304036 / <b>2DB 2305893</b> / 2096220 /  2133440
+</td>
+<td>542-535
+</td></tr>
+<tr>
+<td>RF-Solutions
+</td>
+<td>434MHz Ant 90 degrees
+</td>
+<td>434MHz
+</td>
+<td>SMA
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>542-488
+</td></tr>
+<tr>
+<td>RF-Solutions
+</td>
+<td>868MHz Ant straight
+</td>
+<td>868MHz
+</td>
+<td>SMA
+</td>
+<td>
+</td>
+<td>1304037
+</td>
+<td>542-551
+</td></tr>
+<tr>
+<td>RF-Solutions
+</td>
+<td>868MHz Ant 90 degrees
+</td>
+<td>868MHz
+</td>
+<td>SMA
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>542-563
+</td></tr>
+<tr>
+<td>Ciseco
+</td>
+<td><a rel="nofollow" class="external text" href="http://shop.ciseco.co.uk/433mhz-whip-antenna-with-1-5m-cable/">SMA Extension whip antena 5m</a>
+</td>
+<td>433MHz
+</td>
+<td>SMA
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>Ciseco
+</td>
+<td><a rel="nofollow" class="external text" href="http://shop.ciseco.co.uk/868mhz-whip-antenna-with-5m-cable/">SMA Extension whip antena 5m</a>
+</td>
+<td>868MHz
+</td>
+<td>SMA
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Wired_Connectivity">Wired Connectivity</span></h3>
+<p>Whilst the system was designed to transfer data via radio, it is possible to link the emonTx and RaspberryPi by wires.  Note: this is NOT the standard setup.
+</p>
+<h4><span class="mw-headline" id="Direct_connection_-_emonTx_v3_to_Raspberry_Pi_GPIO">Direct connection - emonTx v3 to Raspberry Pi GPIO</span></h4>
+<p>Both the Raspberry Pi and emonTx v3 run at 3.3V, so the serial data Receive and Transmit lines can be directly connected. the 5V power rail from the Raspberry Pi can be supplied to the emonTx which is then limited to 3.3V by the emonTx v3 voltage regulator. 5V is provided by the red wire (see photo). The ground connection is the black wire, the serial data from the emonTx is the green wire. Wire for serial data traveling the opposite direction i.e. Pi to emonTx, has not been connected in this example, but can be added if two way communication is required.  
+</p><p><a href="https://wiki.openenergymonitor.org/index.php/File:Emontx_to_pi_serial.JPG" class="image" title="Emontx to pi serial"><img alt="Emontx to pi serial" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/400px-Emontx_to_pi_serial.JPG" width="400" height="314" srcset="/images/thumb/Emontx_to_pi_serial.JPG/600px-Emontx_to_pi_serial.JPG 1.5x, /images/Emontx_to_pi_serial.JPG 2x"></a>
+<a href="https://wiki.openenergymonitor.org/index.php/File:Piplusemontx.JPG" class="image" title="emonTx Pi direct connection"><img alt="emonTx Pi direct connection" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/400px-Piplusemontx.JPG" width="400" height="278" srcset="/images/thumb/Piplusemontx.JPG/600px-Piplusemontx.JPG 1.5x, /images/Piplusemontx.JPG 2x"></a>
+</p><p><br>
+<a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/node/3884">See here for detailed emonTx/Raspberry Pi direct serial interface documentation</a>
+</p>
+<h2><span class="mw-headline" id="Electrical_Characteristics_-_Absolute_min_.2F_max">Electrical Characteristics - Absolute min / max</span></h2>
+<table class="wikitable">
+<caption>emonTx V3 Datasheet
+</caption>
+<tbody><tr>
+<td><b>Function</b>
+</td>
+<td><b>Parameter</b>
+</td>
+<td><b>Min</b>
+</td>
+<td><b>Recommended</b>
+<p><b>Max / typical</b>
+</p>
+</td>
+<td><b>Absolute Max</b>
+<p>damage possible if exceeded
+</p>
+</td>
+<td><b>Notes</b>
+</td></tr>
+<tr>
+<td>CT 1-3
+</td>
+<td>Monitoring Power @ 240V
+</td>
+<td>
+</td>
+<td>23kW / 95.8A
+</td>
+<td>60kW / 250A
+</td>
+<td>Using 22R burden and  YHDC SCT-013-00 with 22 turns
+</td></tr>
+<tr>
+<td>CT 4
+</td>
+<td>Monitoring Power @ 240V
+</td>
+<td>
+</td>
+<td>4.5kW / 19.2A
+</td>
+<td>4.6kW max measure – 19.7kW / 82A Max dissipation
+</td>
+<td>Using 120R burden and  YHDC SCT-013-00 with 22 turns
+</td></tr>
+<tr>
+<td>AC-DC half-wave supply
+</td>
+<td>Current output
+</td>
+<td>
+</td>
+<td>20mA
+</td>
+<td>60mA
+</td>
+<td>Current draw above 20mA AC sample signal will be effected
+</td></tr>
+<tr>
+<td>3.3V Rail current output
+</td>
+<td>When powering with 5V USB
+</td>
+<td>
+</td>
+<td>150mA
+</td>
+<td>168mA
+</td>
+<td>Limitation SOT22 MCP1700 Ta=40C Vi=5.25V
+</td></tr>
+<tr>
+<td>Operating Temperature
+</td>
+<td>Temperature
+</td>
+<td>-40C
+</td>
+<td>+40C
+</td>
+<td>+85C
+</td>
+<td>
+</td></tr>
+<tr>
+<td>Storage Temperature
+</td>
+<td>Not programmed
+</td>
+<td>-50C
+</td>
+<td>
+</td>
+<td>+150C
+</td>
+<td>
+</td></tr>
+<tr>
+<td>5V Input Voltage
+</td>
+<td>USB/FTDI/5V Aux
+</td>
+<td>+3.4V
+</td>
+<td>+6V
+</td>
+<td>+6.5V (see note 1)
+</td>
+<td>See note 1
+</td></tr>
+<tr>
+<td>3.3V Supply Voltage
+</td>
+<td>on 3.3V supply rail
+</td>
+<td>2.6V *
+</td>
+<td>3.3V
+</td>
+<td>3.8V RFM12B / 3.6V SRF *
+</td>
+<td>*ADC readings will be incorrect if Vcc!=3.3V
+</td></tr>
+<tr>
+<td>Power Consumption RFM12B
+</td>
+<td>@3.3V
+</td>
+<td>0.034 mA (MCU sleep + RFM12B sleep)
+</td>
+<td>7.3mA (MCU running)
+</td>
+<td>9-10mA (MCU + LED), 23-28mA for 3ms RFM12B tx
+</td>
+<td>With ATmega328, RFM12B and 1 CT connected
+</td></tr>
+<tr>
+<td>Power Consumption SRF
+</td>
+<td>@3.3V
+</td>
+<td>0.032 mA (MCU sleep + SRF sleep II)
+</td>
+<td>7.4mA (MCU running, SRF sleep II)
+</td>
+<td>31.24mA (MCU running, SRF awake)
+</td>
+<td>With ATmega328, SRF and 1 CT connected
+</td></tr></tbody></table>
+<p>Note 1: A higher voltage (up to 17.6V) can be used to power the emonTx if power is connected into the MCP1754 through the AC-DC enable jumper pin.
+</p>
+<h2><span class="mw-headline" id="Design_Calculations">Design Calculations</span></h2>
+<h3><span class="mw-headline" id="Burden_Resistor_Calculations">Burden Resistor Calculations</span></h3>
+<p><u>Using SCT-13-000 with 2000 turns with 100A max primary: </u>
+<a rel="nofollow" class="external free" href="http://www.yhdc.com/cn/product/25/">http://www.yhdc.com/cn/product/25/</a>
+</p><p><b>CTs 1-3 have a 22R burden resistor, and can measure up to 97A (23.3kW @ 240V) using a YHDC SCT-013-00 CT which has 2000 turns.</b>
+</p><p><b>CT 4 has a 120R burden and is rated at 4.6kW max</b>
+</p><p><br>
+<u>Using a CT-16-000 with 6060 turns, at 200A max primary, the recommended burden is 33R which gives a max current rating of 214A</u>
+<a rel="nofollow" class="external free" href="http://www.yhdc.com/cn/product/49/">http://www.yhdc.com/cn/product/49/</a>
+</p><p><br>
+The higher the burden resistance, the smaller the measurement range, the higher the low end accuracy will be. Burden resistors should be +/- 1% tolerance.
+</p><p>Is^=Ip^/turns = Irms x sqrt(2)/turns
+</p><p>Rb= (AREF/2) / Is^ = AREF/ 2Is^
+</p><p>Rb= (AREF * turns) / (2*IpRMS x sqrt(2))
+</p><p>Pmax=(240 * AREF * turns) / (2 *sqrt(2) * Rb)
+</p><p><br>
+Rb (100A , 24kW @ 240V) = 3.3*2000 / 2 x 100 x sqrt(2) = 23.3 Ohm
+</p><p>Closest value = 22R or 24R
+</p><p>Using 22R yields a Pmax of 23.3kW (97.1A) which is close enough to 100A. Measurements at 97-100A will be poor since <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks/report-yhdc-sct-013-000-current-transformer">the CT starts to saturate</a>.
+</p><p>Pmax=(240 * 3.3 * 2000) / (2 *sqrt(2) * 22) = 23.3kW
+</p><p><br>
+Rb (16.7A , 4kW @ 240V) = 3.3*2000 / 2 x 16.67 x sqrt(2) = 23.3 O = 139.9 Ohms
+</p><p>Closest value = 120R or 150R
+</p><p>A 120R burden yields a max rating of 19.16A or ~4.6kW @ 240V
+</p><p>If the power level goes above the CT max rating, the voltage will go above 3.3V and the ATmega328’s ADC will be saturated. A 1K series resistor is used to limit input current to the ATmega. The ATmega 328’s internal clamping diodes will safely limit the voltage, preventing damage. <a rel="nofollow" class="external free" href="http://openenergymonitor.org/emon/node/171">http://openenergymonitor.org/emon/node/171</a>
+</p>
+<h3><span class="mw-headline" id="CT_inserted_indication">CT inserted indication</span></h3>
+<p>On the emonTx v3 design, a switched jack plug is utilized to provide a clear indication if a CT is connected or not. When a 3.5mm jack plug is NOT inserted pin 3 is connected to pin 2 and pin 4 is connected to pin 5 as shown in the diagram below. Pin 4 has been connected to GND so when no CT is connected, the ADC will sense 0V. 
+</p><p>When a 3.5mm jack is inserted the connection between pins 4 &amp; 5 is broken and the CT channel will work as usual.
+</p><p><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTxV3_CT.png" class="image" title="emonTx V3 Setup"><img alt="emonTx V3 Setup" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/400px-EmonTxV3_CT.png" width="400" height="258" srcset="/images/thumb/EmonTxV3_CT.png/600px-EmonTxV3_CT.png 1.5x, /images/EmonTxV3_CT.png 2x"></a>
+</p><p>This method increases quiescent power consumption slightly since 3.3V will be connected to GND through a 470K resistor when no CT is connected. This will introduce a current drain of 7uA per channel, so a maximum of total of 21uA on the board (assuming at least 1 CT is always connected). See Quiescent power consumption section.
+</p>
+<h3><span class="mw-headline" id="Burden_resistor_and_capacitor_power_and_voltage_ratings">Burden resistor and capacitor power and voltage ratings</span></h3>
+<p>From <a rel="nofollow" class="external text" href="http://openenergymonitor.org/emon/buildingblocks/report-yhdc-sct-013-000-current-transformer">testing results</a> the maximum current in the secondary at saturation (primary current 250A – 60kW! @ 240V) is 85mA (RMS)
+</p><p><br>
+CT 1-3 (up to 23.3kW) use a 22R resistor. The max voltage through the burden at CT saturation will be 1.87V (measured by Robert to be 1.5V RMS). The max power the 22R burden will need to dissipate at CT saturation is 159mW
+</p><p><br>
+CT 4 (up to 4.6kW) uses a 120R resistor. Although this channel is rated for a maximum of 4.6kW, we can’t stop it from accidentally being used to make a measurment above that power level. Components should be rated for saturation. The max voltage through burden at CT saturation will be 10.2V (measured by Robert to be 5.2V rms). The max power the 120R burden will need to dissipate is 867mW.
+</p><p><br>
+However, the emonTx will be specced for domestic use. In the UK, the maximum rated fuse/RCB is 100A, most new builds are 80A. Therefore we can safely spec the emonTx for 100A max.
+</p><p><br>
+The current in the secondary at 100A is 50mA (RMS).
+</p><p>Max voltage in CT 1-3 22R burden = 1.1Vrms (measured by Robert to be 0.935 Vrms)
+</p><p>Max power in 22R CT = 55mW
+</p><p><br>
+Max voltage in CT 4 120R burden = 6V (measured by Robert to be 3.9 V rms)
+</p><p>Max power in 120R burden = 300mW
+</p><p>If a 0.25W resistor was used, the maximum current in the secondary would be 42mA. This equates to 82A or 19.7kW. CT4 will be physically removed from CT1-3 and clearly marked as 4.6kW max. <i>Ideally, a red 3.5mm socket will be used to clearly identify.</i>
+</p><p>Therefore the actual max power will be around 175mW. That gives a good margin. 
+</p><p><b>Conclusion: 0.25W burden and 6V capacitor will be suitable ratings. </b>
+A 0606 X5R 10uF 6.3V filtering capacitor can be used
+</p><p><br>
+Given testing results these values have been shown be to conservative, testing results are:
+</p>
+<ul><li>100 A, 22 R: Burden voltage = 0.935 Vrms, 2.612 V peak-peak</li>
+<li>100 A, 120 R: Burden voltage = 3.89 Vrms, 12.07 V peak-peak</li>
+<li>250 A, 22 R: Burden voltage = 1.498 Vrms, 5.626 V peak-peak</li>
+<li>250 A, 120 R: Burden voltage = 5.194 Vrms, 21.9 V peak-peak</li></ul>
+<p>Max power is thus 225 mW (120 R) or 102 mW (22 R)
+</p><p>These are the maximum RMS voltages that can be developed. If 250 mW resistors are used, the actual power is comfortably inside the rating.
+</p>
+<h3><span class="mw-headline" id="Power_Supply">Power Supply</span></h3>
+<h4><span class="mw-headline" id="DC">DC</span></h4>
+<p>The emonTx v3 has been designed to accept power via 5V USB, 3x AA batteries, FTDI connection, Aux input from terminal blocks or from AC power adapter via an AC-DC half-wave power suply.
+</p><p>Only one of the available power sources should be used. <b>DO NOT MIX POWER SOURCES.</b>
+</p><p>In order to keep quiescent power loss to a minimum, a SOT32 MCP1700 LDO regulator was chosen for battery, USB 5V and FTDI power (5V) operation. The max input is 6V which is fine for battery (3 x AA) and USB operation. The MCP1700 has lower quiescent power consumption than the MCP1702 used in the AC-DC half-wave supply.
+</p><p><br>
+<b>Powering from 5V USB (MCP1700 SOT22) Thermal Calculations</b>
+Max voltage drop required = 5.25-3.3=1.95V
+</p><p>Thermal resistance junction to ambient (JA) for MCP1700 SOT23A = 230 degrees C/W (from datashet)
+</p><p>Max case temperature = 150 degrees (from datasheet)
+</p><p>I max = (T case max – T ambient max)/thermal resistance (JA) / delta V max
+</p><p><b>I max (SOT23A) = ((150-40)/336)/1.95V = 168mA (for SOT23A)</b>
+</p><p><br>
+The emonTx v3 does not support battery charging. Please ensure batteries are removed before connecting USB or FTDI power.
+</p>
+<h4><span class="mw-headline" id="AC-DC">AC-DC</span></h4>
+<p>For Power supply design circuit design, see blog posts:
+[<a rel="nofollow" class="external autonumber" href="http://openenergymonitor.blogspot.co.uk/2012/05/emontx-single-ac-power-supply.html">[1]</a>]
+]<a rel="nofollow" class="external autonumber" href="http://openenergymonitor.blogspot.com/2013/01/power-emontx-from-single-ac-power.html">[2]</a>]
+</p><p>For emonTx V3 power supply specifications, see: <a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#Electrical_Characteristics_-_Absolute_min_.2F_max">#Electrical Characteristics - Absolute min / max</a>
+</p><p>All calculations assume a YHDC 013-000 CT and Ideal Power 9C AC-AC adapter 77DE-06-09-MI / 77DB-06-09-MI
+</p><p><br>
+An SOT89 MCP1754 LDO regulator is used in the the AC-DC power supply circuit. The MCP17542 maximum input is 16 Volts. The larger SOT89 package is needed to dissipate the heat. The 47uF capacitor stores enough energy to see us through half wave cycles. See section below for more info on AC-DC half wave operation.
+</p><p><b>The calculations below were first done for the MCP1702. This LDO reulator was swapped for the MCP1754. The MCP1754 was used in production version 3.2. See below for thermal calculations. </b>
+</p><p><br>
+<b>Powering from AC-DC half wave (MCP1702 SOT89) - old, not used in production</b> 
+</p><p><i>Thermal resistance junction to ambient (JA) for MCP1702 SOT-89 JA=52 degrees C/W (from datasheet)</i>
+</p><p>Max case temperature = 150 degrees (from datasheet)
+</p><p>I<sub>max</sub> = (T case max – T ambient max)/thermal resistance (JA) / delta V max
+</p><p><br>
+At 12Vrms (max output of 9V AC-AC at max mains voltage)
+</p><p>ΔB = 12-3.3 = 10.7V
+</p><p>I<sub>max</sub> (SOT-89) = ((150-40)/52)/10.7V = 21.6-19.7mA (30C – 40C ambient) 
+worst case – max mains voltage and 50 degree ambient – max output = 18mA)
+</p><p><br>
+At V=10.4Vrms (output of 9V AC-AC at typical mains voltage)
+</p><p>ΔB = 10.4-3.3 = 7.1V
+</p><p>I<sub>max</sub> (SOT-89) = ((150-40)/52)/7.1V = 32.5-29.7mA (30C – 40C ambient)
+</p><p><br>
+</p><p>At V=8.77Vrms (output of 9V AC-AC at min mains voltage)
+</p><p>ΔB = 8.77-3.3 = 3.62
+</p><p>I<sub>max</sub> (SOT-89) = ((150-40)/52)/3.62V = 63.7-58.4mA (30C – 40C ambient)
+</p><p><br>
+Assume maximum possible continuous current supplied by MCP1702 from the AC-DC half-wave supply to be 18-20mA.
+</p><p><br>
+</p><p><b>Powering from an AC-DC half wave supply (MCP1754 SOT89) - new, used in production v3.2</b>
+</p><p><br>
+Thermal resistance junction to ambient (JA) for MCP1702 SOT-89 JA=153.3 degrees C/W (from datasheet P.22)
+</p><p>Max case temperature = 150 degrees (from datasheet)
+</p><p>I<sub>max</sub> = (T case max – T ambient max)/thermal resistance (JA) / delta V max
+</p><p><br>
+</p><p>At 12Vrms (max output of 9V AC-AC at max mains voltage)
+</p><p>ΔB = 12-3.3 = 10.7V
+</p><p>I<sub>max</sub> (SOT-89) MCP1754 = ((150-40)/153.3)/10.7V = 67 mA (40C ambient) 
+</p><p>worst case – max mains voltage and 50 degree ambient – max output = 61mA )
+</p><p><br>
+At V=10.4Vrms (output of 9V AC-AC at typical mains voltage)
+</p><p>ΔB = 10.4-3.3 = 7.1V
+</p><p>I<sub>max</sub> (SOT-89)  MCP1754 = ((150-40)/153.3)/7.1V = 101 mA (40C ambient)
+</p><p><br>
+At V=8.77Vrms (output of 9V AC-AC at min mains voltage)
+</p><p>ΔB = 8.77-3.3 = 3.62
+</p><p>I<sub>max</sub> (SOT-89)  MCP1754 = ((150-40)/153.3)/3.62V = 198 mA (40C ambient)	 
+</p><p><br>
+<b>Using the MCP1754 with its higher thermal rating means the current limiting resistor dissapation rating is now the bottleneck to how much current can be drawn from the supply.</b>
+</p><p><i>Robert Wall: AC-DC supply might not work (ripple will be unacceptable) if it is connected to a remote socket also serving a high current load at lowest mains voltage. However, the possibility this particular combination of circumstances will happen in practice is extremely remote and can be discounted.</i>
+</p>
+<h4><span class="mw-headline" id="AD-DC_Power_Supply_component_ratings">AD-DC Power Supply component ratings</span></h4>
+<p>Max operation output of circuit = 20mA
+</p><p>Maximum output of circuit = 30mA. The AC voltage sample will be affected and the MCP1702 could overheat if ambient temperature is 40-50 degrees. 30MA should be drawn only for short periods. E.g. SRF radio Transmitting.
+</p><p><br>
+<b>Do not try to draw more than 30mA. This will result in the 3.3V rail dropping significantly, and excess current passing through  the 56R current limiting resistor. This will cause the resistor to overheat/burn.</b>
+</p><p><br>
+<i>Halfwave rectifier diode D1:</i> Worst case at highest mains voltage and extreme current output: 30mW average
+</p><p><i>Current limiting resistor: 56R R29.</i> At worst case, lowest mains voltage and extreme current output: Average power dissipation: 222mW. 0.25W resistor will be ok.
+</p><p><i>Reservoir capacitor C18 47uF:</i> should not see a higher voltage than 12V since the zener diode will clamp the voltage to 12V. A capacitor rating of 16V will be more than enough.
+</p><p><i>De-coupling 1uF capacitor C17 voltage rating: </i>
+The transformer is ground referenced, the other side referenced to 1.65 V – so 6.3 V should be plenty.  The alternating component of the voltage should be very small, else we have phase shift problems. [The major part of the 12V will appear across the divider chain, R13 + R14.]
+</p><p><i>Zener diode</i> - 12V MCP1702 overvoltage protection 106mW average - not needed since MCP1754 is used and can handle 16V input
+</p>
+<h2><span class="mw-headline" id="Open-Hardware_Design_Files">Open-Hardware Design Files</span></h2>
+<p>Proudly open source, the hardware designs are released under the Creative Commons Attribution-ShareAlike 3.0 Unported License:
+</p><p>All the Design files for the emonTx V3 are hosted on Git based SolderPad, see: <a rel="nofollow" class="external free" href="http://solderpad.com/git/openenergymon/emontxv3">http://solderpad.com/git/openenergymon/emontxv3</a>
+</p><p><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTx_V3.2_BOM.png" class="image" title="emonTx V3 BOM"><img alt="emonTx V3 BOM" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/650px-EmonTx_V3.2_BOM.png" width="650" height="361" srcset="/images/thumb/EmonTx_V3.2_BOM.png/975px-EmonTx_V3.2_BOM.png 1.5x, /images/EmonTx_V3.2_BOM.png 2x"></a>
+</p><p>The circuit schematic and pcb layout files are available on GitHub, see: <a rel="nofollow" class="external free" href="https://github.com/openenergymonitor/Hardware/tree/master/emonTxV3/emonTx_V3.2">https://github.com/openenergymonitor/Hardware/tree/master/emonTxV3/emonTx_V3.2</a>
+</p>
+<h3><span class="mw-headline" id="Ideas_for_Future_Versions">Ideas for Future Versions</span></h3>
+<ul><li> Add resistor divider (470K/1M with <a rel="nofollow" class="external text" href="http://www.dsplog.com/2012/05/06/thermal-noise-rc-low-pass-filter/">low value cap to GND</a>) for battery voltage monitoring into a free ADC input, although there are no free ADC's! Maybe it could be jumpered to ADC0 since AC-AC will not be used when a battery is present. </li></ul>
+<ul><li> Check optimal SMA antenna tuning PCB trace</li></ul>
+<h2><span class="mw-headline" id="Physical_Dimensions">Physical Dimensions</span></h2>
+<p>PCB: 100mm x 80mm 
+</p><p><a href="https://wiki.openenergymonitor.org/index.php/File:EmonTxV3.2_brd_dimentions.png" class="image" title="emonTx V3 Dimensions"><img alt="emonTx V3 Dimensions" src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/500px-EmonTxV3.2_brd_dimentions.png" width="500" height="532" srcset="/images/thumb/EmonTxV3.2_brd_dimentions.png/750px-EmonTxV3.2_brd_dimentions.png 1.5x, /images/EmonTxV3.2_brd_dimentions.png 2x"></a>
+</p><p>Download: <a rel="nofollow" class="external text" href="http://solderpad.com/git/openenergymon/emontxv3/tree/Datasheets/Connectors%20&amp;%20Cases/Aluminium%20E-case%20B.pdf">Extruded Aluminium Case Datasheet</a>
+</p>
+<h3><span class="mw-headline" id="Enclosure_.26_Fascia_CAD_Design">Enclosure &amp; Fascia CAD Design</span></h3>
+<p>It was decided to use an extruded aluminium case with acrylic fascia. The case is solid, wall mountable and port cutouts are easily customizable with laser cut fascias. The initial embodied energy of aluminium is greater than plastic, but recycling aluminum uses less energy than recycling plastic. See our <a rel="nofollow" class="external text" href="http://openenergymonitor.blogspot.co.uk/2012/05/embodied-energy-of-electronic-enclosure.html">blog post</a> investigating the embodied energy of electronics enclosure materials.
+</p><p>The emonTx V3 fascia design CAD files are available here: <a rel="nofollow" class="external text" href="http://www.thingiverse.com/thing:209267">Thingiverse Download</a>
+</p>
+<h4><span class="mw-headline" id="DIN_Rail_Mount">DIN Rail Mount</span></h4>
+<p>Thanks to <a rel="nofollow" class="external text" href="http://twitter.ccom/Aquefot">@Aquefot</a> for contributing a <a rel="nofollow" class="external text" href="https://twitter.com/aquefot/status/413708371809026048/photo/1">DIN mount rail fitting CAD design</a> ready to be 3D printed for the emonTx: <a rel="nofollow" class="external text" href="http://www.thingiverse.com/thing:208177">Thingiverse Download</a>
+</p>
+<h2><span class="mw-headline" id="License">License</span></h2>
+<p>The hardware designs (schematics and CAD files) are licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+</p><p>The firmware is released under the GNU GPL V3 license
+</p><p>The documentation is subject to GNU Free Documentation License
+</p><p>The hardware designs follow the terms of the OSHW (Open-source hardware) Statement of Principles 1.0.
+</p>
+<h2><span class="mw-headline" id="Environmental_.26_Life_Cycle">Environmental &amp; Life Cycle</span></h2>
+<p><b>We are passionate about sustainability and are aware of the embodied energy and use of resources involved in electronics manufacturing. We try our best to reduce environmental impact wherever possible:</b>
+</p>
+<ul><li> We have recently been inspired by a few projects taking a lead in promoting and making steps towards Ethical and Sustainable Electronics, see our <a rel="nofollow" class="external text" href="http://openenergymonitor.blogspot.com/2013/08/ethical-and-sustainable-electronics.html">blog post we wrote on the topic </a>. </li></ul>
+<ul><li> The emonTx V3 case was chosen since aluminium can be easily recycled, see our <a rel="nofollow" class="external text" href="http://openenergymonitor.blogspot.com/2012/05/embodied-energy-of-electronic-enclosure.html">blog post considering the embodied energy involved</a></li></ul>
+<ul><li> The PCBs are manufactured in the UK by a manufacturer who uses lead free techniques, complies to the highest environmental industry standards and is actively investing in techniques and equipment to reduce waste and environmental impact (e.g water treatment and recycling). Hot-air leveling was chosen instead of immersion gold finish to reduce environmental impact.</li></ul>
+<ul><li> The assembly is done in the UK. All components are RoHS compliant and free of conflict materials.</li></ul>
+<ul><li> Surface freight is used in preference to air shipping when ordering parts in bulk. This consumes 33 times less energy.</li></ul>
+<ul><li> We have strived to reduce electrical energy consumption in our hardware to be as low as possible and recommend the use of green, rechargable batteries, see <a rel="nofollow" class="external text" href="http://openenergymonitor.blogspot.com/2013/10/aa-battery-considerations.html">blog post</a></li></ul>
+<h2><span class="mw-headline" id="Disclaimer">Disclaimer</span></h2>
+<p>OUR PRODUCTS AND ASSEMBLY KITS MAY BE USED BY EXPERIENCED, SKILLED USERS, AT THEIR OWN RISK. TO THE FULLEST EXTENT PERMISSIBLE BY THE APPLICABLE LAW, WE HEREBY DISCLAIM ANY AND ALL RESPONSIBILITY, RISK, LIABILITY AND DAMAGES ARISING OUT OF DEATH OR PERSONAL INJURY RESULTING FROM ASSEMBLY OR OPERATION OF OUR PRODUCTS.
+</p><p>The OpenEnergyMonitor system is sold as a development kit to empower members of the openenergymonitor community to to get involved with the OpenEnergyMonitor open-source energy monitoring development project.
+</p><p>Your safety is your own responsibility, including proper use of equipment and safety gear, and determining whether you have adequate skill and experience. OpenEnergyMonitor and Megni registered partnership disclaims all responsibility for any resulting damage, injury, or expense. It is your responsibility to make sure that your activities comply with applicable laws, including copyright.
+Always check the webpage associated with each unit before you get started. There may be important updates or corrections!
+All use of the instructions, kits, projects and suggestions given both by megni.co.uk, openenergymonitor.org and shop.openenergymonitor.org are to be used at your own risk. The technology (hardware , firmware and software) are constantly changing, documentation (including build guide and instructions) may not be complete or correct.
+</p><p>If you feel uncomfortable with assembling or using any part of the kit, simply return it to us for a full refund.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20180312055835
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.085 seconds
+Real time usage: 0.087 seconds
+Preprocessor visited node count: 293/1000000
+Preprocessor generated node count: 420/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 - -total
+-->
+
+<!-- Saved in parser cache with key wiki:pcache:idhash:2727-0!*!0!!en-gb!5!* and timestamp 20180312055835 and revision id 3944
+ -->
+</div>					<div class="printfooter">
+						Retrieved from ‘<a dir="ltr" href="https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;oldid=3944">https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;oldid=3944</a>’					</div>
+				<div id="catlinks" class="catlinks catlinks-allhidden"></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="https://wiki.openenergymonitor.org/index.php?title=Special:UserLogin&amp;returnto=EmonTx+V3" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li><li id="pt-createaccount"><a href="https://wiki.openenergymonitor.org/index.php/Special:RequestAccount" title="You are encouraged to create an account and log in; however, it is not mandatory">Request account</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3" title="View the content page [alt-shift-c]" accesskey="c">Page</a></span></li>
+															<li id="ca-talk" class="new"><span><a href="https://wiki.openenergymonitor.org/index.php?title=Talk:EmonTx_V3&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t" rel="discussion">Discussion</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label" tabindex="0">
+							<span>Variants</span><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#" tabindex="-1"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3">Read</a></span></li>
+															<li id="ca-viewsource"><span><a href="https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label" style="">
+						<h3 id="p-cactions-label" tabindex="0"><span>More</span><a href="https://wiki.openenergymonitor.org/index.php/EmonTx_V3#" tabindex="-1"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="https://wiki.openenergymonitor.org/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search" title="Search OpenEnergyMonitor Wiki [alt-shift-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off"><input type="hidden" value="Special:Search" name="title"><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton">							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="https://wiki.openenergymonitor.org/index.php/Main_Page" title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id="p-Wiki" aria-labelledby="p-Wiki-label">
+			<h3 id="p-Wiki-label">Wiki</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="https://wiki.openenergymonitor.org/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li><li id="n-recentchanges"><a href="https://wiki.openenergymonitor.org/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-Links" aria-labelledby="p-Links-label">
+			<h3 id="p-Links-label">Links</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-OpenEnergyMonitor.org"><a href="http://openenergymonitor.org/" rel="nofollow">OpenEnergyMonitor.org</a></li><li id="n-Forums"><a href="http://openenergymonitor.org/emon/forum" rel="nofollow">Forums</a></li><li id="n-Github"><a href="http://github.com/openenergymonitor" rel="nofollow">Github</a></li><li id="n-Shop"><a href="http://shop.openenergymonitor.com/" rel="nofollow">Shop</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="https://wiki.openenergymonitor.org/index.php/Special:WhatLinksHere/EmonTx_V3" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="https://wiki.openenergymonitor.org/index.php/Special:RecentChangesLinked/EmonTx_V3" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li><li id="t-specialpages"><a href="https://wiki.openenergymonitor.org/index.php/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li><li id="t-print"><a href="https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li><li id="t-permalink"><a href="https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;oldid=3944" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="https://wiki.openenergymonitor.org/index.php?title=EmonTx_V3&amp;action=info" title="More information about this page">Page information</a></li>					</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 15 March 2017, at 19:29.</li>
+											<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wiki.openenergymonitor.org/index.php/OpenEnergyMonitor_Wiki:Privacy_policy" title="OpenEnergyMonitor Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://wiki.openenergymonitor.org/index.php/OpenEnergyMonitor_Wiki:About" title="OpenEnergyMonitor Wiki:About">About OpenEnergyMonitor Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="https://wiki.openenergymonitor.org/index.php/OpenEnergyMonitor_Wiki:General_disclaimer" title="OpenEnergyMonitor Wiki:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="http://www.gnu.org/copyleft/fdl.html"><img src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/gnu-fdl.png" alt="GNU Free Documentation License 1.3 or later" width="88" height="31"></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="https://www.mediawiki.org/"><img src="./EmonTx V3 - OpenEnergyMonitor Wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"user":"ready","user.groups":"ready"});mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":62});
+} );</script>
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

@@ -1,0 +1,19 @@
+15/2/2018: Xong phan cung prototype cho PLOG.
+
+25/2/2018: Thuc hien FW cho PLOG theo Objectives:
+
+	1 - Led, switch (I/O) functions (ASAP)
+	2 - UART Debug functions (ASAP) --> Config APP, DEMO APP
+	3 - UART BGS2 functions (ASAP)
+	4 - ADC functions (ASAP)
+	5 - Power management functions (ASAP)
+	6 - SPI flash functions (future optional)
+	7 - UART RS485 functions (future optional)
+	8 - SD Card functions (functions optional)
+	9 - RTC functions (future optional)
+	
+27/2/2018: Tam xong UART Debug function
+
+28/2/2018: Xong LED function
+
+29/2/2018: 

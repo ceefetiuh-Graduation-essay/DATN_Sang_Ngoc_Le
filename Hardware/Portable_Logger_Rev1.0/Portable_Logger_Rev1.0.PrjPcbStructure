@@ -1,0 +1,5 @@
+Record=TopLevelDocument|FileName=Block diagram.SchDoc
+Record=SheetSymbol|SourceDocument=Block diagram.SchDoc|Designator=ADC|SchDesignator=ADC|FileName=4. ADC.SchDoc|SymbolType=Normal|RawFileName=4. ADC.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Block diagram.SchDoc|Designator=GSM|SchDesignator=GSM|FileName=3.GSM Module.SchDoc|SymbolType=Normal|RawFileName=3.GSM Module.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Block diagram.SchDoc|Designator=MCU|SchDesignator=MCU|FileName=2. MCU.SchDoc|SymbolType=Normal|RawFileName=2. MCU.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Block diagram.SchDoc|Designator=Power|SchDesignator=Power|FileName=1. Power supply.SchDoc|SymbolType=Normal|RawFileName=1. Power supply.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 

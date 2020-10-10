@@ -1,0 +1,32 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Plog_v1.PcbDoc   12-Apr-18  9:42:45 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Plog_v1-RoundHoles.TXT
+ASCII SlotHoles File : Plog_v1-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      12mil (0.3mm)                                             Round             567       PTH        60.00inch (1524.04mm)
+T2      30mil (0.762mm)                                           Slot              2         PTH        5.37inch (136.36mm)
+T3      31mil (0.787mm)                                           Round             8         PTH        0.90inch (22.86mm)
+T4      32mil (0.8mm)                                             Round             3         PTH        0.35inch (8.78mm)
+T5      35mil (0.889mm)                                           Slot              3         PTH        1.23inch (31.32mm)
+T6      35mil (0.899mm)                                           Round             10        PTH        5.87inch (149.14mm)
+T7      39mil (1.001mm)                                           Round             17        PTH        4.21inch (106.93mm)
+T8      59mil (1.501mm)                                           Round             16        PTH        10.10inch (256.50mm)
+T9      79mil (1.999mm)                                           Round             4         PTH        0.60inch (15.24mm)
+T10     118mil (3mm)                                              Round             4         PTH        8.90inch (226.00mm)
+T11     39mil (1.001mm)                                           Round             4         NPTH       0.68inch (17.34mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              638
+
+Two holes at same point : 4
+-----------------------
+26626,19933
+26563,19693
+27043,19772
+26287,20358
+
+Total Processing Time (hh:mm:ss) : 00:00:00

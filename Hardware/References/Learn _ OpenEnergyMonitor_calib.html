@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://learn.openenergymonitor.org/electricity-monitoring/ctac/calibration -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <script>
+  var path = "https://learn.openenergymonitor.org/";
+  var session = JSON.parse('null');
+  var apikey = "";
+</script>
+<title>Learn | OpenEnergyMonitor</title>
+<link rel="shortcut icon" href="https://learn.openenergymonitor.org/theme/favicon.ico">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+<meta name="theme-color" content="#44b3e2">
+<link rel="stylesheet" type="text/css" href="./Learn _ OpenEnergyMonitor_calib_files/style.php">
+<link rel="stylesheet" href="./Learn _ OpenEnergyMonitor_calib_files/font-awesome.min.css">
+<script type="text/javascript" src="./Learn _ OpenEnergyMonitor_calib_files/jquery-3.3.1.min.js.download"></script>
+</head>
+<body>
+  <div class="container" style="margin-left: 300px; float: none; background-color: rgb(255, 255, 255);">
+    <div class="row">
+        <div class="editGit"><a href="https://github.com/openenergymonitor/learn/blob/master/view/electricity-monitoring/ctac/calibration.md">Edit&nbsp;<i class="fa fa-github" aria-hidden="true"></i></a></div><h2>Calibration Procedure</h2>
+<hr>
+<h4>Why calibrate?</h4>
+<p>It is impossible to manufacture anything with absolute precision. In general terms, the more precisely something is manufactured, the more expensive it is. Consider the emonTx current input as a relatively simple example. If we assume for now that we don't have any errors in the sketch, we have 3 physical factors that will each contribute to the uncertainty in the value that we read for the current. These are:</p>
+<ul>
+<li>The transfer ratio of the current transformer.</li>
+<li>The value of the burden resistor.</li>
+<li>The accuracy with which the burden voltage is measured.</li>
+</ul>
+<p>Item 3 has two components – ADC non-linearity and reference uncertainty. Normally, both of these have three components that contribute to the possible error to a greater or lesser extent:</p>
+<ul>
+<li>An initial uncertainty in the value at the time of manufacture.</li>
+<li>Drift due to physical changes over time.</li>
+<li>External influences.</li>
+</ul>
+<p>Calibration is a means of correcting the first of these, and if performed regularly, it will also correct for the second. Unless you are able to remove or shield your device from external influences, there is generally very little you can do to counter their effects.</p>
+<p>A full appraisal of the sources of error in the emonTx measurement is <a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/emontx-error-sources">here</a>. In the worst case, the measurement of real or apparent power could be in error by nearly 40% without calibration. With calibration against a reasonably-priced multimeter, the accuracy should be around 6%.</p>
+<h4>Calibrating the Internal Reference Voltage</h4>
+<p>This procedure is not applicable to the emonTx V3 using the default sketch. For all other variants, it is recommended if you are using batteries to power your emonTx; it is optional if you are using a mains power supply. You should do this first, before adjusting the calibration constants. If you change the calibration of the internal reference, the calibration constants will need to be corrected.</p>
+<p>Looking at the table in the <a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-good-is-your-multimeter">Multimeters article</a>, every meter gave the best accuracy when measuring the 3.3V supply, and the worst had a possible error of about 1%. In the emonLib library, we have a method that can measure the supply compared to the internal reference. Therefore, using this method and measuring the supply with a multimeter, it is possible to calibrate the internal band-gap reference to the accuracy of our multimeter, simply by changing the constant “1126400L” in readVcc( ) so that it returns the same value as the multimeter. A simple sketch CalVref [<a href="https://github.com/openenergymonitor/emontx2/blob/master/firmware/CalVref/CalVref.ino">download</a>] to calculate the calibration constant given the measured value of V<sub>CC</sub>, is all that is needed.</p>
+<p>When we do this, we dramatically improve the accuracy within which the value of the internal band-gap reference is known, hence the accuracy of the battery voltage.</p>
+<h4>Recommended Calibration Method</h4>
+<p>(This applies equally to the emonTx, the emonTx shield and an Arduino board, or a custom or prototype version)</p>
+<p>You will need:</p>
+<ul>
+<li>A multimeter or voltmeter to measure your mains voltage.</li>
+<li>The same multimeter or an ammeter to measure current.</li>
+<li>A resistive load or loads (e.g. a kettle, electric heater, etc) that draw a current close to but less than the maximum that your meter can measure.</li>
+</ul>
+<p>If you do not have a multimeter, or you are not confident that you can measure your mains safely, you can use a plug-in energy meter. In that case in the procedure that follows, you use the energy meter's readings for voltage and current instead of the multimeter's. If you don't have any form of meter, then see below for common calibration coefficients. You might then, over time, be able to make small adjustments so that the total energy recorded agrees with your energy supplier's meter.</p>
+<h4>Procedure:</h4>
+<p>Take great care when working with mains voltages. If you are using batteries to power your emonTx, you should calibrate the internal reference first.</p>
+<p>1) Load one of the demonstration sketches from <a href="https://github.com/openenergymonitor/emonTxFirmware">emonTxFirmware</a>. You will need to choose the one appropriate to your version of the emonTx. If you have the emonTx V3, use the default sketch (check the Wiki to see which that is), but you will need to add some print statements in order to read separately the values for current and power factor. Note, however, that some special-purpose sketches have their own particular calibration procedure. Where this is the case, it will be described in a comment in the sketch.</p>
+<p>2) Measure the mains voltage and adjust either the voltage constant 240.0 (emonTx_CT123) in lines like this</p>
+<pre><code>emontx.power1 = ct1.calcIrms(1480) * 240.0; (emonTx V2)</code></pre>
+<p><em>or</em></p>
+<pre><code>const byte Vrms = 230; (emonTx V3)</code></pre>
+<p>to the average value that you read <em>or</em> adjust the voltage calibration constant 236.39 (emonTx_CT123_Voltage) in lines like this</p>
+<pre><code>ct1.voltageTX(236.39, 1.7); (emonTx V2)</code></pre>
+<p><em>or</em></p>
+<pre><code>const float Vcal = 284.9667; (emonTx V3)</code></pre>
+<p>so that the voltage reported by the emonTx is the same as the voltage you measure with your meter. The new calibration coefficient can be calculated by:</p>
+<pre><code>New calibration = existing calibration × (correct reading ÷ emonTx reading)</code></pre>
+<p>3) Insert your meter in series with the load and clip the current transformer over one of the leads. Connect to the mains supply, measure the current and adjust the current calibration constant 111.1 (or 90.9 or 60.6)&nbsp; in lines like this</p>
+<pre><code>ct1.currentTX(1, 111.1);(emonTx V2)</code></pre>
+<p><em>or</em></p>
+<pre><code>const float Ical = 90.9; (emonTx V3)</code></pre>
+<p>so that the current reported is the same as the current you measure. Check the instructions for your meter in case there is a time limit for making the measurement. If there is, you must make the measurement quickly and allow sufficient time for the meter to cool before repeating.</p>
+<p>4) If you are using the voltage input, with the load connected adjust the phase angle calibration 1.7 in lines like this</p>
+<pre><code>ct1.voltageTX(236.39, 1.7); (emonTx V2)</code></pre>
+<p><em>or</em></p>
+<pre><code>const float phase_shift = 1.7; (emonTx V3)</code></pre>
+<p>so that real power and apparent power read the same value (and power factor is as close to 1.00 as possible). Your meter is not needed for this.</p>
+<p>The phase calibration coefficient should not normally go outside the range 0.0 – 2.0</p>
+<p>5) Check the voltage calibration again. It might need a slight adjustment if the phase angle calibration was altered significantly. Recheck the phase angle calibration.</p>
+<h4>Theoretical CT Sensor Calibration</h4>
+<pre>CT Ratio / Burden resistance = (100A / 0.05A) / 18 Ohms = 111.1 (for the emonTx V2)</pre>
+<pre>CT Ratio / Burden resistance = (100A / 0.05A) / 22 Ohms = 90.9 (for the emonTx V3 CT1-3)</pre>
+<pre>CT Ratio / Burden resistance = (100A / 0.05A) / 120 Ohms = 16.67 (for the emonTx V3 CT4)
+
+CT Ratio / Burden resistance = (100A / 0.05A) / 33 Ohms = 60.6 (for the emonTx Shield)</pre>
+<p><strong>In practice</strong></p>
+<p>The CT has a stated accuracy of ±3%. The CT burden resistor is a 1% tolerance component, so the total error should be less than&nbsp;4%. Therefore, the expected range for the CT calibration for the emonTx is 106.66 – 115.54 (58.18 – 63.02 for the emonTx Shield), provided the internal reference has been calibrated accurately. Because the emonTx V3 firmware does not use the internal reference by default, an additional 1% must be added for the voltage regulator tolerance and so the expected range should be 86.35 – 95.45.</p>
+<div class="xaxiswrapper">
+
+<table>
+
+<tbody>
+
+<tr>
+
+<th>Burden Resistor</th>
+
+<th>Current Calibration Coefficient</th>
+
+</tr>
+
+<tr>
+
+<td>15&nbsp;Ω&nbsp;±1% - old</td>
+
+<td><span style="line-height: 14px; white-space: pre;">133.3</span></td>
+
+</tr>
+
+<tr>
+
+<td>18&nbsp;Ω&nbsp;±1% - shipped as standard in emonTx V2 kit</td>
+
+<td>
+
+111.1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>22&nbsp;Ω&nbsp;±1% - standard in emonTx V3 for CTs 1-3</td>
+
+<td>
+
+90.9
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>120&nbsp;Ω&nbsp;±1% - standard in emonTx V3 for CT 4</td>
+
+<td><span style="line-height: 14px; white-space: pre;">16.67</span></td>
+
+</tr>
+
+<tr>
+
+<td style="width: 347px;">33&nbsp;Ω&nbsp;±1% - shipped as standard in emonTx Shield kit</td>
+
+<td style="width: 140px;">
+
+60.6
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+<h4>Theoretical AC-AC Adapter calibration</h4>
+<p><strong>Ideal Power AC-AC Adapters</strong></p>
+<p>Datasheet:&nbsp;<a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/files/77DB-06-09.pdf">Ideal Power 77DB-06-09</a>&nbsp;(UK Plug type)</p>
+<p>Datasheet: <a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/files/77DE-06-09.pdf">Ideal Power&nbsp;77DE-06-09</a>&nbsp;(EURO Plug type)</p>
+<p>Datasheet: <a href="http://files.openenergymonitor.org/77DA-10-09.pdf">Ideal Power&nbsp;77DA-10-09</a>&nbsp;(US Plug type)</p>
+<table>
+<thead>
+<tr>
+<th>Adapter Type</th>
+<th>Voltage calibration coefficient EmonTx V2</th>
+<th>Voltage calibration coefficient EmonTx V3</th>
+<th>Voltage calibration coefficient EmonTx Shield V2.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ideal Power 77DB-06-09 (UK Plug type)</td>
+<td>227.59</td>
+<td>268.97</td>
+<td>268.97</td>
+</tr>
+<tr>
+<td>Ideal Power 77DE-06-09 (EURO Plug type)</td>
+<td>220.0</td>
+<td>260.0</td>
+<td>260.0</td>
+</tr>
+<tr>
+<td>Ideal Power 77DA-10-09 (US Plug type)</td>
+<td>110.0</td>
+<td>130.0</td>
+<td>130.0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The values are derived from manufacturer's data and are subject to normal manufacturing tolerances. The coefficient might be in error by up to ±6% (77DA-10-09 &amp; 77DE-06-09) or ±4% (77DB-06-09) when resistor tolerances are added.</p>
+<h3>Other AC-AC Adapters</h3>
+<table>
+<thead>
+<tr>
+<th>Ac-AC Adapter</th>
+<th>Plug</th>
+<th>Voltage Calibration Coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MW<br><a href="./Learn _ OpenEnergyMonitor_calib_files/MW1.jpg"><img src="./Learn _ OpenEnergyMonitor_calib_files/MW1.jpg" alt=""></a></td>
+<td>UK</td>
+<td>233.67</td>
+</tr>
+<tr>
+<td>Strontronics<br><a href="./Learn _ OpenEnergyMonitor_calib_files/Stontronics1.jpg"><img src="./Learn _ OpenEnergyMonitor_calib_files/Stontronics1.jpg" alt=""></a></td>
+<td>UK</td>
+<td>238.56</td>
+</tr>
+<tr>
+<td>Mascot 9580<br><a href="./Learn _ OpenEnergyMonitor_calib_files/mascot1.jpg"><img src="./Learn _ OpenEnergyMonitor_calib_files/mascot1.jpg" alt=""></a></td>
+<td>UK</td>
+<td>234.26</td>
+</tr>
+<tr>
+<td>FP AD 3515<br><a href="./Learn _ OpenEnergyMonitor_calib_files/FP1.jpg"><img src="./Learn _ OpenEnergyMonitor_calib_files/FP1.jpg" alt=""></a></td>
+<td>Euro</td>
+<td>212.658</td>
+</tr>
+<tr>
+<td>Ideal Power / TDC<br><img src="./Learn _ OpenEnergyMonitor_calib_files/TDC-DB-06-09_small.jpg" alt=""><br><a href="http://shop.openenergymonitor.com/components/">This is the adapter currently sold in the OEM shop</a></td>
+<td>UK/Euro/US</td>
+<td>see above</td>
+</tr>
+</tbody>
+</table>
+<p>See&nbsp;<a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/emontx-error-sources">EmonTx errors</a>&nbsp;for a full analysis of the sources of error in the emonTx.</p>
+<p>See&nbsp;<a href="https://learn.openenergymonitor.org/electricity-monitoring/voltage-sensing/different-acac-power-adapters">Different AC-AC Power Adapters</a>&nbsp;for more detailed information on the different AC-AC adapters.</p>
+<p>See&nbsp;<a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/ct-and-ac-power-adaptor-installation-and-calibration-theory">CT and AC power adaptor installation and calibration theory</a> for detailed information on the theoretical basis for the calculation of the calibration coefficients.</p>      <div class="nextPrev">
+        <div class="prev">Previous:<br><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-to-build-an-arduino-energy-monitor">Basic: How to build an arduino energy monitor</a></div><div class="next">Next:&nbsp;<br><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/emontx-error-sources">2. Emontx error sources</a></div> <!--important! no white-space-->
+      </div>
+    </div>
+  </div>
+  <div id="rightpanel" style="margin-left: 300px; margin-top: 42px; width: 960px; float: none;">
+    <div id="rightpanel-inner" style="padding: 0px;"></div>
+  </div>
+  <div class="searchBox">
+    <form target="_blank" id="searchform" action="https://www.google.com/cse">
+      <div>
+        <input type="hidden" name="cx" value="006198118389747886812:_nmxikw563w">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="text" class="searchText" value="" name="q" id="q" autocomplete="off">
+        <input type="submit" id="searchsubmit" name="sa" value="Search">
+      </div>
+    </form>
+  </div>
+  <div class="titleHolder">
+    <div class="communityWrapper">
+      <i class="fa fa-navicon"></i>
+			<a href="https://learn.openenergymonitor.org/">
+      	<div class="titleIcon">
+					<i aria-hidden="true" class="fa fa-mortar-board"></i>
+				</div>
+				<div class="thisTitle">
+					<div class="thisTitle-top">
+        		<b>Learn</b>
+					</div>
+					<div class="thisTitle-bottom">
+        		Open<b>EnergyMonitor</b>
+					</div>
+				</div>
+			</a>
+      <div class="navigationBig">
+        <ul>
+          <li title="the homepage of OpenEnergyMonitor">
+            <a href="https://openenergymonitor.org/">
+              <i class="fa fa-home" aria-hidden="true"></i><span class="navname">&nbsp;Home</span>
+            </a>
+          </li>
+          <li title="a user guide for the OpenEnergyMonitor system">
+            <a href="https://guide.openenergymonitor.org/">
+              <i class="fa fa-book" aria-hidden="true"></i><span class="navname">&nbsp;Guide</span>
+            </a>
+          </li>
+          <li title="you are here: general information about energy monitoring, diversion and sustainability" class="actoemLink">
+            <a href="https://learn.openenergymonitor.org/">
+              <i class="fa fa-mortar-board" aria-hidden="true"></i><span class="navname">&nbsp;Learn</span>
+            </a>
+          </li>
+          <li title="a definitive list of resources for OpenEnergyMonitor hardware">
+            <a href="https://guide.openenergymonitor.org/technical/resources/">
+              <i class="fa fa-list-alt" aria-hidden="true"></i><span class="navname">&nbsp;Resources</span>
+            </a>
+          </li>
+          <li title="the openenergymonitor forum">
+            <a href="https://community.openenergymonitor.org/">
+              <i class="fa fa-comments" aria-hidden="true"></i><span class="navname">&nbsp;Community</span>
+            </a>
+          </li>
+          <li title="keep up with new developments at OpenEnergyMonitor">
+            <a href="https://blog.openenergymonitor.org/">
+              <i class="fa fa-bullhorn" aria-hidden="true"></i><span class="navname">&nbsp;Blog</span>
+            </a>
+          </li>
+          <li title="the official OpenEnergyMonitor online store">
+            <a href="https://shop.openenergymonitor.com/">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="navname">&nbsp;Shop</span>
+            </a>
+          </li>
+          <li title="search for something on OpenEnergyMonitor">
+    				<a class="searchIcon">
+    					<i aria-hidden="true" class="fa fa-search"></i><span class="navname">&nbsp;Search</span>
+    				</a>
+    			</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="blackOut" style="display: none;"></div>
+  <div id="mySidenav" class="sidenav" style="width: 300px;">
+    <div class="sidenav_inner">
+      <div class="lowermenuWrapper">
+        <div class="searchContainer">
+          <form method="get" action="https://www.google.com/search">
+            <div>
+              <input type="hidden" name="sitesearch" value="https://learn.openenergymonitor.org">
+              <input type="text" name="q" size="15">
+              <input type="submit" name="sa" value="">
+            </div>
+          </form>
+        </div>
+        <div class="mainmenuColor">
+          <div class="toplevelhead clickedOnce">
+            <div class="topIcons clickedOnce"><div class="iconCircle"></div><i class="fa fa-bolt"></i></div><div class="toplevelname">&nbsp;&nbsp;Electricity Monitoring</div></div><div class="toplevel" name="electricity-monitoring" style=""><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;AC Power Theory</div><div class="sublevel" name="ac-power-theory" style="display: none;"><ul><li class="menu" name="introduction"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ac-power-theory/introduction">Introduction</a></li><li class="menu" name="arduino-maths"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ac-power-theory/arduino-maths">Arduino Maths</a></li><li class="menu" name="advanced-maths"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ac-power-theory/advanced-maths">Advanced Maths</a></li><li class="menu" name="3-phase-power"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ac-power-theory/3-phase-power">3-Phase Power</a></li><li class="menu" name="use-in-north-america"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ac-power-theory/use-in-north-america">Use in North America</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;CT Sensors</div><div class="sublevel" name="ct-sensors" style="display: none;"><ul><li class="menu" name="introduction"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/introduction">1. Introduction</a></li><li class="menu" name="installation"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/installation">2. Installation</a></li><li class="menu" name="interface-with-arduino"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/interface-with-arduino">3. Interfacing with an Arduino</a></li><li class="menu" name="how-to-build-an-arduino-energy-monitor-measuring-current-only"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/how-to-build-an-arduino-energy-monitor-measuring-current-only">4. How to Build an Arduino Energy Monitor Measuring Current Only</a></li><li class="menu" name="measurement-implications-of-adc-resolution-at-low-current-values"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/measurement-implications-of-adc-resolution-at-low-current-values">Advanced: Measurement Implications of ADC Resolution at Low Current Values</a></li><li class="menu" name="extending-ct-cable"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/extending-ct-cable">Extending CT Sensor Cable</a></li><li class="menu" name="yhdc-sct-013-000-ct-sensor-report"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/yhdc-sct-013-000-ct-sensor-report">YHDC SCT-013-000 CT Sensor Report</a></li><li class="menu" name="yhdc-sct006-ct-sensor-report"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/yhdc-sct006-ct-sensor-report">YHDC SCT006 CT Sensor Report</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Voltage Sensing</div><div class="sublevel" name="voltage-sensing" style="display: none;"><ul><li class="menu" name="measuring-voltage-with-an-acac-power-adapter"><a href="https://learn.openenergymonitor.org/electricity-monitoring/voltage-sensing/measuring-voltage-with-an-acac-power-adapter">1. Measuring Voltage with an AC-AC<br>Power Adapter</a></li><li class="menu" name="different-acac-power-adapters"><a href="https://learn.openenergymonitor.org/electricity-monitoring/voltage-sensing/different-acac-power-adapters">2. Different AC-AC Power Adapters</a></li><li class="menu" name="report-idealpower-9v-acac-adaptor"><a href="https://learn.openenergymonitor.org/electricity-monitoring/voltage-sensing/report-idealpower-9v-acac-adaptor">Report: <i>IdealPower</i> &nbsp;9V AC-AC Adapter</a></li><li class="menu" name="report-mascot-9v-acac-adaptor"><a href="https://learn.openenergymonitor.org/electricity-monitoring/voltage-sensing/report-mascot-9v-acac-adaptor">Report: <i>Mascot</i> &nbsp;9v AC-AC Adapter</a></li></ul></div><div class="sublevelhead clickedOnce">
+              <span>
+              <i id="subIcon" class="fa fa-minus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Current &amp; Voltage</div><div class="sublevel" name="ctac" style=""><ul><li class="menu" name="how-to-build-an-arduino-energy-monitor"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-to-build-an-arduino-energy-monitor">Basic: How to build an arduino energy monitor</a></li><li class="menu active" name="calibration"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/calibration">1. Calibration Procedure</a></li><li class="menu" name="emontx-error-sources"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/emontx-error-sources">2. Emontx error sources</a></li><li class="menu" name="ct-and-ac-power-adaptor-installation-and-calibration-theory"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/ct-and-ac-power-adaptor-installation-and-calibration-theory">3. CT and AC power adaptor installation and calibration theory</a></li><li class="menu" name="how-good-is-your-multimeter"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-good-is-your-multimeter">4. How good is your multimeter</a></li><li class="menu" name="buffered-voltage-bias"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/acac-buffered-voltage-bias">5. Buffered Voltage Bias</a></li><li class="menu" name="digital-filters-for-offset-removal"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/digital-filters-for-offset-removal">Advanced: Digital filters for offset removal</a></li><li class="menu" name="explanation-of-the-phase-correction-algorithm"><a href="https://learn.openenergymonitor.org/electricity-monitoring/ctac/explanation-of-the-phase-correction-algorithm">Advanced: Explanation of the phase correction algorithm</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Networking</div><div class="sublevel" name="networking" style="display: none;"><ul><li class="menu" name="which-radio-module"><a href="https://learn.openenergymonitor.org/electricity-monitoring/networking/which-radio-module">Which radio module</a></li><li class="menu" name="rfm12_69"><a href="https://learn.openenergymonitor.org/electricity-monitoring/networking/rfm12_69">RFM12B &amp; RFM69cw wireless transceiver modules</a></li><li class="menu" name="sending-data-between-nodes-rfm"><a href="https://learn.openenergymonitor.org/electricity-monitoring/networking/sending-data-between-nodes-rfm">Sending data between nodes</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Pulse Counting</div><div class="sublevel" name="pulse-counting" style="display: none;"><ul><li class="menu" name="introduction-to-pulse-counting"><a href="https://learn.openenergymonitor.org/electricity-monitoring/pulse-counting/introduction-to-pulse-counting">Introduction to pulse counting</a></li><li class="menu" name="interrupt-based-pulse-counter"><a href="https://learn.openenergymonitor.org/electricity-monitoring/pulse-counting/interrupt-based-pulse-counter">Interrupt based pulse counter</a></li><li class="menu" name="interrupt-based-pulse-counter-sleep"><a href="https://learn.openenergymonitor.org/electricity-monitoring/pulse-counting/interrupt-based-pulse-counter-sleep">Interrupt based pulse counter<br> + with sleep</a></li><li class="menu" name="12-input-pulse-counting"><a href="https://learn.openenergymonitor.org/electricity-monitoring/pulse-counting/12-input-pulse-counting">12 input pulse counting</a></li><li class="menu" name="gas-meter-monitoring"><a href="https://learn.openenergymonitor.org/electricity-monitoring/pulse-counting/gas-meter-monitoring">Gas Metering</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Temperature</div><div class="sublevel" name="temperature" style="display: none;"><ul><li class="menu" name="DS18B20-temperature-sensing"><a href="https://learn.openenergymonitor.org/electricity-monitoring/temperature/DS18B20-temperature-sensing">DS18B20 temperature sensing</a></li><li class="menu" name="DS18B20-temperature-sensing-2"><a href="https://learn.openenergymonitor.org/electricity-monitoring/temperature/DS18B20-temperature-sensing-2">DS18B20 temperature sensing 2</a></li><li class="menu" name="rtd-temperature-sensing"><a href="https://learn.openenergymonitor.org/electricity-monitoring/temperature/rtd-temperature-sensing">RTD temperature sensing</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Timeseries</div><div class="sublevel" name="timeseries" style="display: none;"><ul><li class="menu" name="History"><a href="https://learn.openenergymonitor.org/electricity-monitoring/timeseries/History">Timeseries storage history in emoncms</a></li><li class="menu" name="Fixed-interval"><a href="https://learn.openenergymonitor.org/electricity-monitoring/timeseries/Fixed-interval">Fixed interval timeseries</a></li><li class="menu" name="Fixed-interval-averaging"><a href="https://learn.openenergymonitor.org/electricity-monitoring/timeseries/Fixed-interval-averaging">Fixed interval with averaging</a></li><li class="menu" name="Variable-interval"><a href="https://learn.openenergymonitor.org/electricity-monitoring/timeseries/Variable-interval">Variable interval timeseries</a></li><li class="menu" name="Write-load-investigation"><a href="https://learn.openenergymonitor.org/electricity-monitoring/timeseries/Write-load-investigation">Write load investigation</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Emoncms Internals</div><div class="sublevel" name="emoncms-internals" style="display: none;"><ul><li class="menu" name="architecture"><a href="https://learn.openenergymonitor.org/electricity-monitoring/emoncms-internals/architecture">Architecture</a></li><li class="menu" name="developing_new_module"><a href="https://learn.openenergymonitor.org/electricity-monitoring/emoncms-internals/developing-a-new-module">Developing a new module</a></li><li class="menu" name="Global variables in EmonCMS"><a href="https://learn.openenergymonitor.org/electricity-monitoring/emoncms-internals/global-variables">Global variables in Emoncms</a></li><li class="menu" name="developinputproc"><a href="https://learn.openenergymonitor.org/electricity-monitoring/emoncms-internals/input-processing">Input Processing</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Using the Arduino IDE</div><div class="sublevel" name="arduino-ide" style="display: none;"><ul><li class="menu" name="windows-10-installing-the-arduino-ide"><a href="https://learn.openenergymonitor.org/electricity-monitoring/arduino-ide/windows10ide">Windows 10 OS: Installing the Arduino IDE</a></li><li class="menu" name="windows-10-installing-the-arduino-libraries"><a href="https://learn.openenergymonitor.org/electricity-monitoring/arduino-ide/windows10lib">Windows 10 OS: Installing the Arduino Libraries</a></li><li class="menu" name="ubuntu-installing-the-arduino-ide"><a href="https://learn.openenergymonitor.org/electricity-monitoring/arduino-ide/ubuntuide">Ubuntu (Linux) OS: Installing the Arduino IDE</a></li><li class="menu" name="ubuntu-installing-the-arduino-libraries"><a href="https://learn.openenergymonitor.org/electricity-monitoring/arduino-ide/ubuntulib">Ubuntu (Linux) OS: Installing the Arduino Libraries</a></li><li class="menu" name="macos-installing-the-arduino-libraries"><a href="https://learn.openenergymonitor.org/electricity-monitoring/arduino-ide/macoslib">macOS: Installing the Arduino Libraries</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Other Software</div><div class="sublevel" name="other-software" style="display: none;"><ul><li class="menu" name="AndroidAppPart1"><a href="https://learn.openenergymonitor.org/electricity-monitoring/other-software/AndroidAppPart1">Android App Part 1</a></li><li class="menu" name="AndroidAppPart2"><a href="https://learn.openenergymonitor.org/electricity-monitoring/other-software/AndroidAppPart2">Android App Part 2</a></li><li class="menu" name="DrawingABarChart"><a href="https://learn.openenergymonitor.org/electricity-monitoring/other-software/DrawingABarChart">Drawing A Bar Chart</a></li><li class="menu" name="graphing-in-kst"><a href="https://learn.openenergymonitor.org/electricity-monitoring/other-software/graphing-in-kst">Graphing in kst</a></li><li class="menu" name="visampler2"><a href="https://learn.openenergymonitor.org/electricity-monitoring/other-software/visampler2">VIsampler 2.0</a></li><li class="menu" name="sma-webbox-data-extractor"><a href="https://learn.openenergymonitor.org/electricity-monitoring/other-software/sma-webbox-data-extractor">SMA webbox data extractor</a></li></ul></div></div><div class="toplevelhead">
+            <div class="topIcons"><div class="iconCircle"></div><i class="fa fa-globe"></i></div><div class="toplevelname">&nbsp;&nbsp;Sustainable Energy</div></div><div class="toplevel" name="sustainable-energy" style="display: none;"><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Energy</div><div class="sublevel" name="energy" style="display: none;"><ul><li class="menu" name="introduction"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/introduction">1. Introduction</a></li><li class="menu" name="energy-101"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/energy-101">2. Energy 101</a></li><li class="menu" name="snowdonia-energy-study"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/snowdonia-energy-study">3. Snowdonia Energy Study</a></li><li class="menu" name="snowdonia-energy-study-data"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/snowdonia-energy-study-data">4. Snowdonia Energy Study: Data</a></li><li class="menu" name="zerocarbonbritain"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/zerocarbonbritain">5. Building on the ZeroCarbonBritain energy model</a></li><li class="menu" name="scenarios"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/scenarios">6. Community scale scenarios</a></li><li class="menu" name="renewableheat"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/renewableheat">7. Renewable Heat</a></li><li class="menu" name="costs"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/costs">8. Looking at Costs</a></li><li class="menu" name="uk-energy-2015"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/uk-energy-2015">Appendix 1: UK Energy 2015</a></li><li class="menu" name="energy-use-in-context"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/energy-use-in-context">Appendix 2: Energy use in context</a></li><li class="menu" name="energy-101-ref"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/energy-101-ref">Appendix 3: Energy 101 Reference</a></li><li class="menu" name="greentariffs"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/greentariffs">Appendix 4: Green Tariffs</a></li><li class="menu" name="cars"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/cars">Appendix 5: Petrol, Diesel and Electric car<br>energy and carbon performance</a></li><li class="menu" name="further-reading"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/further-reading">Further reading</a></li><li class="menu" name="sabatier-process"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/sabatier-process">Industry: Sabatier process</a></li><li class="menu" name="industry-steel"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/industry-steel">Industry: Steel production</a></li><li class="menu" name="industry-plastic"><a href="https://learn.openenergymonitor.org/sustainable-energy/energy/industry-plastic">Industry: Plastic production</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Zero Carbon Energy Model</div><div class="sublevel" name="zcem" style="display: none;"><ul><li class="menu" name="integrated.html#varsupply"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#varsupply">1. Variable Supply</a></li><li class="menu" name="integrated.html#varsupply_flatdemand"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#varsupply_flatdemand">2. Variable supply and flat demand</a></li><li class="menu" name="integrated.html#varsupply_traddemand"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#varsupply_traddemand">3. Variable supply, traditional electricity demand and oversupply</a></li><li class="menu" name="integrated.html#windandsun_flatdemand"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#windandsun_flatdemand">4. Mixed supply and flat demand</a></li><li class="menu" name="integrated.html#electricvehicles"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#electricvehicles">6. Electric Vehicles</a></li><li class="menu" name="integrated.html#all"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#all">7. Household electric only model</a></li><li class="menu" name="integrated.html#fullhousehold"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#fullhousehold">8. Household full energy model</a></li><li class="menu" name="integrated.html#aggregation"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#aggregation">Aggregation</a></li><li class="menu" name="integrated.html#dataset"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#dataset">ZCB Dataset</a></li><li class="menu" name="integrated.html#python"><a href="https://learn.openenergymonitor.org/sustainable-energy/zcem/integrated.html#python">Python models</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Building Energy Modelling</div><div class="sublevel" name="building-energy-model" style="display: none;"><ul><li class="menu" name="readme"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/readme">1. Introduction</a></li><li class="menu" name="fabricheatloss"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/fabricheatloss">2. Fabric heat loss</a></li><li class="menu" name="ventilation"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/ventilation">3. Ventilation heat loss</a></li><li class="menu" name="SimpleJSModel"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/SimpleJSModel">4. A simple building energy model</a></li><li class="menu" name="ElementLibrary"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/ElementLibrary">Fabric Element Library</a></li><li class="menu" name="radiatormodel"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/radiatormodel">Basic radiator model</a></li><li class="menu" name="heatpumpmodel"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/heatpumpmodel">Basic heatpump model</a></li><li class="menu" name="dynamicmodel"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/dynamicmodel">Dynamic building model</a></li><li class="menu" name="modelexamples"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/modelexamples">Model examples</a></li><li class="menu" name="ESPR"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/ESPR">ESPR</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Tools</div><div class="sublevel" name="tools" style="display: none;"><ul><li class="menu" name="MyHomeEnergyPlanner"><a href="https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/MyHomeEnergyPlanner">MyHomeEnergyPlanner: Getting Started</a></li><li class="menu" name="electricity-audit-and-savings-case-study"><a href="https://learn.openenergymonitor.org/sustainable-energy/tools/electricity-audit-and-savings-case-study">Electricity audit and savings case study</a></li></ul></div></div><div class="toplevelhead">
+            <div class="topIcons"><div class="iconCircle"></div><i class="fa fa-random" style="padding:10px 0 0 2px;"></i></div><div class="toplevelname">&nbsp;&nbsp;PV Diversion</div></div><div class="toplevel" name="pv-diversion" style="display: none;"><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Introduction</div><div class="sublevel" name="introduction" style="display: none;"><ul><li class="menu" name="intro"><a href="https://learn.openenergymonitor.org/pv-diversion/introduction/choosing-an-energy-diverter.md">Choosing An Energy Diverter</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;Background</div><div class="sublevel" name="background" style="display: none;"><ul><li class="menu" name="meters"><a href="https://learn.openenergymonitor.org/pv-diversion/background/meters">Meters</a></li><li class="menu" name="overload-protection-of-mains-electrical-circuits"><a href="https://learn.openenergymonitor.org/pv-diversion/background/overload-protection-of-mains-electrical-circuits">Overload protection of mains electrical circuits</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;MK2 PV Diverter</div><div class="sublevel" name="mk2" style="display: none;"><ul><li class="menu" name="index"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/index">Contents</a></li><li class="menu" name="intro"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/intro">1. Introduction</a></li><li class="menu" name="pvmeasurement"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/pvmeasurement">2. Measurement of surplus PV</a></li><li class="menu" name="diversion"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/diversion">3. Diversion and Use of surplus PV</a></li><li class="menu" name="switchdev"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/switchdev">4. Switching High Current Loads (Triac)</a></li><li class="menu" name="modes"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/modes">5. Mk2 Controller Operating Modes</a></li><li class="menu" name="vimeasurement"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/vimeasurement">6. Voltage and current measurement</a></li><li class="menu" name="calibration"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/calibration">7. Calibration</a></li><li class="menu" name="build"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/build">8. Building a Mk2 PV Router</a></li><li class="menu" name="versions"><a href="https://learn.openenergymonitor.org/pv-diversion/mk2/versions">9. Software Versions</a></li></ul></div><div class="sublevelhead">
+              <span>
+              <i id="subIcon" class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>&nbsp;PLL Diverter</div><div class="sublevel" name="pll" style="display: none;"><ul><li class="menu" name="pll"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/pll">Contents</a></li><li class="menu" name="features"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/features">1. Features</a></li><li class="menu" name="softwaredesign"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/softwaredesign">2. Software Design Overview</a></li><li class="menu" name="operatingprinciple"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/operatingprinciple">3. What is a PLL? – operating principle</a></li><li class="menu" name="adcinterrupts"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/adcinterrupts">4. The ADC and interrupts</a></li><li class="menu" name="integermaths"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/integermaths">5. Integer maths</a></li><li class="menu" name="advantagesoveremonlib"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/advantagesoveremonlib">6. Advantages over emonLib</a></li><li class="menu" name="implementation"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/implementation">7. Implementation</a></li><li class="menu" name="sketchdetail"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/sketchdetail">8. The sketch explained in detail.</a></li><li class="menu" name="hardware"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/hardware">9. Hardware</a></li><li class="menu" name="derivatives"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/derivatives">10. Derivatives</a></li><li class="menu" name="references"><a href="https://learn.openenergymonitor.org/pv-diversion/pll/references">11. References</a></li></ul></div></div>        </div>
+      </div>
+    </div>
+  </div>
+  <div id="siteLinks" class="navigation" style="display: block;">
+    <ul>
+      <li title="the homepage of OpenEnergyMonitor">
+        <a href="https://openenergymonitor.org/">
+          <i class="fa fa-home" aria-hidden="true"></i><span class="navname">&nbsp;Home</span>
+        </a>
+      </li>
+      <li title="a user guide for the OpenEnergyMonitor system">
+        <a href="https://guide.openenergymonitor.org/">
+          <i class="fa fa-book" aria-hidden="true"></i><span class="navname">&nbsp;Guide</span>
+        </a>
+      </li>
+      <li title="you are here: general information about energy monitoring, diversion and sustainability" class="actoemLink">
+        <a href="https://learn.openenergymonitor.org/">
+          <i class="fa fa-mortar-board" aria-hidden="true"></i><span class="navname">&nbsp;Learn</span>
+        </a>
+      </li>
+      <li title="a definitive list of resources for OpenEnergyMonitor hardware">
+        <a href="https://guide.openenergymonitor.org/technical/resources/">
+          <i class="fa fa-list-alt" aria-hidden="true"></i><span class="navname">&nbsp;Resources</span>
+        </a>
+      </li>
+      <li title="the openenergymonitor forum">
+        <a href="https://community.openenergymonitor.org/">
+          <i class="fa fa-comments" aria-hidden="true"></i><span class="navname">&nbsp;Community</span>
+        </a>
+      </li>
+      <li title="keep up with new developments at OpenEnergyMonitor">
+        <a href="https://blog.openenergymonitor.org/">
+          <i class="fa fa-bullhorn" aria-hidden="true"></i><span class="navname">&nbsp;Blog</span>
+        </a>
+      </li>
+      <li title="the official OpenEnergyMonitor online store">
+        <a href="https://shop.openenergymonitor.com/">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="navname">&nbsp;Shop</span>
+        </a>
+      </li>
+      <li title="search for something on OpenEnergyMonitor">
+				<a class="searchIcon">
+					<i aria-hidden="true" class="fa fa-search"></i><span class="navname">&nbsp;Search</span>
+				</a>
+			</li>
+    </ul>
+  </div>
+
+
+<script>
+
+// ----------------------------------------------------------------------------------------
+// OEM common bar search...
+// ----------------------------------------------------------------------------------------
+
+$(".searchIcon").click(function() {
+   $(".searchBox").css("display","flex");
+   $(".searchText").animate({width: "200px"});
+   $(".searchText").focus();
+   $("html, body").addClass("menuFreeze");
+});
+
+$(".searchBox").click(function() {
+   $(".searchBox").hide();
+  $(".searchText").css("width","0");
+  $("html, body").removeClass("menuFreeze");
+  closeNav()
+});
+
+$(".searchBox form").click( function(event) {
+   event.stopPropagation();
+});
+
+// ----------------------------------------------------------------------------------------
+// No padding if no content in right panel...
+// ----------------------------------------------------------------------------------------
+
+$(window).ready(function(){
+  if ($("#rightpanel-inner").html().length === 0){
+    $("#rightpanel-inner").css("padding","0")
+  }
+});
+
+// ----------------------------------------------------------------------------------------
+// Append icons to the top level of the side-bar menu...
+// ----------------------------------------------------------------------------------------
+
+$(".topIcons:eq(0)").append(
+ "<i class='fa fa-bolt'></i>");
+$(".topIcons:eq(1)").append(
+ "<i class='fa fa-globe'></i>");
+$(".topIcons:eq(2)").append(
+ "<i class='fa fa-random' style='padding:10px 0 0 2px;'></i>");
+
+// ----------------------------------------------------------------------------------------
+// Enable sidebar...
+// ----------------------------------------------------------------------------------------
+
+var fixsidebar = false;
+sidebar_resize(); // Set correct size on loading
+$(".container").css('background-color','#fff');
+$(".sublevel").hide();
+$(".toplevel").hide();
+
+// ----------------------------------------------------------------------------------------
+// Show/hide OpenEnergyMonitor site links...
+// ----------------------------------------------------------------------------------------
+
+$(".titleWrapper").click(function(){
+  open_topmenu()
+});
+
+function open_topmenu(){
+  $(".navigation").slideToggle("fast");
+  $(".titleWrapper").find('#menuSelect').toggleClass('fa-plus-circle fa-minus-circle');
+};
+
+// ----------------------------------------------------------------------------------------
+// Display current page link in menu...
+// ----------------------------------------------------------------------------------------
+
+var q = "electricity-monitoring/ctac/calibration";
+q = q.split("/");
+if (q[0] && q[1] != ("")) {
+  sl = $(".sublevel[name="+q[1]+"]");
+  tl = $(".toplevel[name="+q[0]+"]");
+  tl.show();
+  tl.prev().addClass("clickedOnce");
+  tl.prev().children(".topIcons").addClass("clickedOnce");
+  sl.show();
+  sl.prev().addClass("clickedOnce");
+  sl.prev().children().find('#subIcon').toggleClass('fa-plus-circle fa-minus-circle');
+
+$("a[href='" + window.location.href + "']").parent().addClass("active");
+
+$(window).on('hashchange', function(e){
+  $(".menu a").parent().removeClass("active");
+  $(".menu a[href='" + window.location.href + "']").parent().addClass("active");
+  $('.nextPrev > .next').empty();
+  $('.nextPrev > .prev').empty();
+  pageLinks();
+  });
+}
+
+// ----------------------------------------------------------------------------------------
+// Open and close top level of menu...
+// ----------------------------------------------------------------------------------------
+
+$(".toplevelhead").click(function() {
+  $("#subIcon.fa-minus-circle").toggleClass('fa-minus-circle fa-plus-circle');
+  $(".sublevel").slideUp("fast");
+  $(".sublevelhead.clickedOnce").removeClass("clickedOnce");
+  var sibling = $(this).siblings(".toplevel");
+  var siblingHead = $(this).siblings(".toplevelhead");
+  if ($(this).hasClass("clickedOnce")) {
+    var topLevel = $(this).next();
+    topLevel.slideUp("fast");
+    $(this).children(".topIcons").removeClass("clickedOnce");
+    $(this).removeClass("clickedOnce");
+  }
+  else {
+    siblingHead.next().slideUp("fast");
+    siblingHead.removeClass("clickedOnce");
+    siblingHead.children(".topIcons").removeClass("clickedOnce");
+    $(this).children(".topIcons").addClass("clickedOnce");
+    $(this).addClass("clickedOnce");
+    var topLevel = $(this).next();
+    topLevel.slideDown("fast");
+    $("#menuSelect.fa-minus-circle").toggleClass('fa-plus-circle fa-minus-circle');
+  }
+});
+
+// ----------------------------------------------------------------------------------------
+// Open and close lower level of sidebar...
+// ----------------------------------------------------------------------------------------
+
+$(".sublevelhead").click(function() {
+  $(this).find('#subIcon').toggleClass('fa-plus-circle fa-minus-circle');
+  var sibling = $(this).siblings(".sublevel");
+  var siblingHead = $(this).siblings(".sublevelhead");
+  if ($(this).hasClass("clickedOnce")) {
+    var sublevel = $(this).next();
+    sublevel.slideUp("fast");
+    $(this).removeClass("clickedOnce");
+  }
+  else {
+    sibling.slideUp("fast");
+    siblingHead.removeClass("clickedOnce");
+    siblingHead.find("#subIcon.fa-minus-circle").toggleClass('fa-minus-circle fa-plus-circle');
+    $(this).addClass("clickedOnce");
+    var sublevel = $(this).next();
+    sublevel.slideDown("fast");
+    $("#menuSelect.fa-minus-circle").toggleClass('fa-plus-circle fa-minus-circle');
+  }
+});
+
+// ----------------------------------------------------------------------------------------
+// Open sidebar...
+// ----------------------------------------------------------------------------------------
+
+$(".fa-navicon").click(function(){
+  fixsidebar = true;
+  $(".sidenav").css("width","0");
+  $(".sidenav").show();
+  $(".navigation").css("width","0");
+  $(".navigation").show();
+  $(".navigation").animate({ width:'100' },"0.5s");
+  $(".blackOut").show();
+  $(".sidenav").delay("slow").show().animate({ width:'300' },"0.5s");
+  $("html, body").addClass("menuFreeze");
+  $(".lowermenuWrapper").css("margin-left","100px");
+  $(".topIcons").css({"display":"block","margin":"0 auto"});
+  $(".toplevelname").css({"width":"100%","font-size":"14px"});
+  $(".sublevelhead").css("padding-left","10px");
+  $(".sublevel").css("padding-left","10px");
+  $(".sublevel ul").css("list-style-type","none");
+});
+
+// ----------------------------------------------------------------------------------------
+// Close sidebar...
+// ----------------------------------------------------------------------------------------
+
+$(".blackOut").click(function() {
+  closeNav();
+});
+
+function closeNav() {
+  if ( fixsidebar === true ) {
+    fixsidebar = false;
+    $("#menuSelect.fa-minus-circle").toggleClass('fa-plus-circle fa-minus-circle');
+    $(".blackOut").hide();
+    $(".sidenav").hide();
+    $(".sidenav").css("width","300px");
+    $(".navigation").css("width","0");
+    $("html, body").removeClass("menuFreeze");
+    $(".lowermenuWrapper").css("margin-left","0");
+    $(".topIcons").css({"display":"inline-block","margin":"0"});
+    $(".toplevelname").css({"width":"auto","font-size":"18px"});
+    $(".sublevelhead").css("padding-left","35px");
+    $(".sublevel").css("padding-left","60px");
+    $(".sublevel ul").css("list-style-type","circle");
+  }
+};
+
+// ----------------------------------------------------------------------------------------
+//  Next & previous links on page...
+// ----------------------------------------------------------------------------------------
+
+function pageLinks() {
+  var previous = $("li.active").prev().html();
+  var psLocate = $("li.active").closest(".sublevel").prevAll().eq(2);
+  var prevSection = psLocate.text();
+  var psLink = psLocate.next().find('a:first').attr('href');
+  var next = $("li.active").next().html();
+  var nsLocate = $("li.active").closest(".sublevel").nextAll().eq(0);
+  var nextSection = nsLocate.text();
+  var nsLink = nsLocate.next().find('a:first').attr('href');
+  if (next != null) {
+    $('.nextPrev > .next').append("Next:&nbsp;<br>" + next);
+  }
+  else if (nsLink != null) {
+    $('.nextPrev > .next').append("Next Chapter:<a href=" + nsLink + "><br>" + nextSection + "</a>");
+  }
+  else if (nsLink == null && next == null) {
+    $('.nextPrev > .next').append("Return to:<br><a href='/'>Main Menu</a>");
+  }
+  if (previous != null) {
+    $('.nextPrev > .prev').append("Previous:<br>" + previous);
+  }
+  else if (psLink != null) {
+    $('.nextPrev > .prev').append("Previous Chapter:<a href=" + psLink + "><br>" + prevSection + "</a>");
+  }
+  else if (psLink == null && previous == null) {
+    $('.nextPrev > .prev').append("Return to:<br><a href='/'>Main Menu</a>");
+  }
+}
+
+pageLinks();
+
+// ----------------------------------------------------------------------------------------
+//  Responsive sidebar...
+// ----------------------------------------------------------------------------------------
+
+function sidebar_resize() {
+  var width = $(window).width();
+  var height = $(window).height();
+  if (width<1080) {
+    if (fixsidebar===false) {
+      $(".navigation").css("width","0");
+    }
+    else {
+      $(".blackOut").show();
+    }
+    $(".container").css("margin","42px auto 0");
+    }
+  else {
+    $(".sidenav").css("width","300px");
+    $(".container").css("margin-left","300px");
+    $(".blackOut").hide();
+    $(".navigation").show();
+    }
+  if (width<1080) { //  Responsive right hand panel
+    $("#rightpanel").css("margin","0 auto");
+    $("#rightpanel").css("width","100%");
+    $(".container").css("float","none");
+    $("#rightpanel").css("float","none");
+    $(".sidenav").hide();
+  }
+  else if (width<1260) {
+    $("#rightpanel").css("margin-left","300px");
+    $("#rightpanel").css("width","100%");
+    $(".container").css("float","none");
+    $("#rightpanel").css("float","none");
+    $(".sidenav").show();
+  }
+  else if (width<(1260+400)) {
+    $("#rightpanel").css("margin-left","300px");
+    $("#rightpanel").css("margin-top","42px");
+    $("#rightpanel").css("width","960px");
+    $(".container").css("float","none");
+    $("#rightpanel").css("float","none");
+    $(".sidenav").show();
+  }
+  else {
+    var rightwidth = width - 300 - 960 - 20;
+    $("#rightpanel").css("margin-left","0px");
+    $("#rightpanel").css("margin-top","42px");
+    $("#rightpanel").css("width",rightwidth+"px");
+    $(".container").css("float","left");
+    $("#rightpanel").css("float","left");
+    $(".sidenav").show();
+  }
+}
+
+var inputFocus = false; // fix resize bug on input
+
+$(".searchContainer :input").focus(function(){
+  inputFocus = true;
+});
+
+$(".searchContainer :input").blur(function(){
+  inputFocus = false;
+});
+
+var xsize = 0;
+
+$(window).on('load', function(){
+  xsize = $( window ).width();
+});
+
+$(window).resize(function() {
+  setTimeout(function() {
+    if (xsize != $( window ).width()) {
+      closeNav();
+      sidebar_resize();
+      xsize = $( window ).width();
+    }
+  }, 500);
+});
+
+</script>
+</body></html>

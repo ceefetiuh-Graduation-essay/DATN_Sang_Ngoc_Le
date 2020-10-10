@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=V_GSM Pin=LED1-1
+Removed Pin From Net: NetName=3V3 Pin=R13-2
+Removed Pin From Net: NetName=3V3 Pin=R14-2
+Removed Pin From Net: NetName=GND Pin=SW2-8
+Change Component Designator: OldDesignator=R11 NewDesignator=R12
+Change Component Designator: OldDesignator=R12 NewDesignator=R11
+Added Pin To Net: NetName=3V3-LED Pin=LED1-1
+Added Pin To Net: NetName=3V3-LED Pin=R13-2
+Added Pin To Net: NetName=3V3-LED Pin=R14-2
+Added Pin To Net: NetName=3V3-LED Pin=SW2-1
+Added Net: Name=3V3-LED
+Added Pin To Net: NetName=NetR11_1 Pin=R11-1
+Added Pin To Net: NetName=NetR11_1 Pin=SW2-2
+Added Pin To Net: NetName=NetR11_1 Pin=U4-60
+Added Net: Name=NetR11_1
+Added Member To Class: ClassName=4. ADC Member=Component R39 10k

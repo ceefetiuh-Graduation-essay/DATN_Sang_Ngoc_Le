@@ -1,0 +1,2 @@
+Change Component Footprint: Designator=C3 Old Footprint=Cap SMD Tant 10u New Footprint=Cap SMD Tant - 470u
+Added Pin To Net: NetName=3V3 Pin=SW2-8

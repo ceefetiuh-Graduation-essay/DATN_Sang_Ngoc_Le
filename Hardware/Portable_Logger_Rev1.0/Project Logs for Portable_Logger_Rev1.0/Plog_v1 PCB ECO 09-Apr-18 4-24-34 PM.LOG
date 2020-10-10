@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=4V3_SW Pin=D1-1
+Removed Member From Class: ClassName=1. Power supply Member=D1
+Change Component Comment : Designator=TP1 Old Comment=4V3_PG New Comment=Vin
+Added Pin To Net: NetName=4V3_SW Pin=R1-1

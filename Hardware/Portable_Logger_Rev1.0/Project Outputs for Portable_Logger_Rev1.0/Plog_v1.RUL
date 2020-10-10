@@ -1,0 +1,22 @@
+DRC Rules Export File for PCB: E:\Document\Do an\Do an tot nghiep\Portable Logger - DoAn\Hardware\Portable_Logger_Rev1.0\Plog_v1.PcbDoc
+RuleKind=Clearance|RuleName=Clearance_4|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_3|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_2|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_1|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_13|Scope=Board|Minimum=30.00
+RuleKind=Width|RuleName=Schematic Width Constraint_12|Scope=Board|Minimum=30.00
+RuleKind=Width|RuleName=Schematic Width Constraint_11|Scope=Board|Minimum=30.00
+RuleKind=Width|RuleName=Schematic Width Constraint_10|Scope=Board|Minimum=30.00
+RuleKind=Width|RuleName=Schematic Width Constraint_9|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_8|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_7|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_6|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_5|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_4|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_3|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint_1|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Schematic Width Constraint|Scope=Board|Minimum=10.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=3.94
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
